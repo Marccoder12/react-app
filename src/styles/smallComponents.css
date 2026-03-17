@@ -1,0 +1,92 @@
+/* Toggle Component */
+/* On / Off toggle */
+.main-toggle{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-toggle .toggle-title{
+    color: black;
+    
+}
+.toggle-btn{
+    background-color: #b7b9ba;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    transition: background-color 0.1s ease, border-color 0.2s ease;
+    width: 50px;
+    height: 28px;
+    cursor: pointer;
+    /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748); */
+    position: relative;
+}
+
+.toggle-btn .thumb{
+    height: 26px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 7px;
+    transform:translateX(0);
+    transition: left 0.15s ease;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.toggle-btn.toggled{
+    background-color: #15b58e;
+}
+
+.toggle-btn:hover{
+    border-color: #6f6f6f;
+}
+
+.toggle-btn.toggled .thumb{
+    left: calc(50px - 27px);
+}
+
+
+
+
+/*Text Field*/
+.normal-textField{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.normal-textField .textField-title{
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(49, 49, 49);
+}
+.normal-textField input{
+    display: block;
+    height: 30px;
+    width: 100%;
+    color: rgb(65, 65, 65);
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    padding-left: 5px;
+    outline: none;
+}
+.normal-textField input::placeholder{
+    padding-left: 10px;
+    transition: 0.2s ease;
+    transform: translateY(0%);
+}
+.normal-textField input:focus::placeholder{
+    padding-left: 10px;
+    transition: 0.2s ease;
+    transform: translateY(-60%);
+    transition: 0.2s ease;
+    opacity: 0;
+}
+
+.normal-textField input:focus{
+    border: 2px solid #5bace2;
+    border-color: #5bace2;
+    border-radius: 5px;
+}

@@ -1,0 +1,62 @@
+.logInModalForm{
+    background-color: rgba(240, 240, 240, 0.192);
+    /* background-color: transparent; */
+    width: 40%;
+    height: 100%;
+    border-radius: 12px;
+    border: 2px solid #dadada;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    box-shadow: 0px 0px 15px rgba(41, 88, 168, 0.616);
+}
+
+.logInModalForm .modalTitle{
+    font-size: calc(100% + 1rem);
+    color: black;
+}
+.fields{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+.name-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 100%;
+    gap: 1rem;
+}
+.normal-textField{
+    width:100%;
+}
+
+.emailnPass{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 100%;
+    gap: 2rem;
+}
+
+.signUpBtn{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    border: none;
+    background-color: #5b8de9;
+    border-radius: 12px;
+}
+.signUpBtn:hover{
+    color: #ffffff;
+    font-size: 16px;
+    border: 5px solid #5380d4;
+    transition: 0.2s;
+    background-color: #6c9cf5;
+}
