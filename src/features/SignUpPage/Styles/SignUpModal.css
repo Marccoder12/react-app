@@ -1,8 +1,8 @@
-.signUpModalForm{
+.signUpModalForm {
     background-color: rgba(240, 240, 240, 0.192);
     /* background-color: transparent; */
     width: 40%;
-    height: 100%;
+    height: 60%;
     border-radius: 12px;
     border: 2px solid #dadada;
     display: flex;
@@ -14,28 +14,33 @@
     box-shadow: 0px 0px 15px rgba(41, 88, 168, 0.616);
 }
 
-.signUpModalForm .modalTitle{
+.signUpModalForm .modalTitle {
     font-size: calc(100% + 1rem);
     color: black;
 }
-.fields{
+
+.fields {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
     width: 100%;
 }
-.name-row{
+
+.name-row {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     flex-grow: 100%;
     gap: 1rem;
 }
-.normal-textField{
-    width:100%;
+
+.normal-textField {
+    width: 100%;
 }
 
-.emailnPass{
+.emailnPass {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -43,14 +48,15 @@
     gap: 2rem;
 }
 
-.signUpBtn{
+.signUpBtn {
     width: 200px;
     height: 50px;
     border: none;
     background-color: rgb(91, 141, 233);
     border-radius: 12px;
 }
-.signUpBtn:hover{
+
+.signUpBtn:hover {
     border: 5px solid #5380d4;
     transition: 0.2s;
     background-color: #6c9cf5;

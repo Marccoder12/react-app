@@ -1,17 +1,29 @@
-import "../styles/HomePage.css";
-import Topnav from "../features/HomePage/components/Topnav";
-import SideNav from "../features/HomePage/components/SideNav";
-import MainContent from "../features/HomePage/components/MainContent";
-import SideBar from "../features/HomePage/components/Sidebar";
-import Footer from "../features/HomePage/components/Footer";
+import SideNav from "../features/HomePage/components/SideNav/SideNav";
+import MainPage from "../features/HomePage/components/MainPage";
+
 export default function Home() {
   return (
-    <>
-      <Topnav></Topnav>;
-      <SideNav></SideNav>
-      <MainContent></MainContent>
-      <SideBar></SideBar>
-      <Footer></Footer>
-    </>
+    <main className="h-full grid gap-4 p-4 grid-cols-[220px_1fr]">
+      {/* <p>Hello World</p> */}
+      <SideNav />
+      <MainPage />
+    </main>
   );
 }
+
+// // Assuming you have a 'supabase' client instance imported and initialized
+// async function handleLogOut() {
+
+//   const { error } = await supabase.auth.signOut();
+
+//   if (error) {
+//     console.error('Error signing out:', error.message);
+//     // You might want to display an error message to the user
+//   } else {
+//     console.log('User signed out successfully');
+//     // Redirect the user to a public page, e.g., the login page
+//     // router.push('/login');
+//   }
+// }
+
+13522809874;

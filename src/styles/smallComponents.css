@@ -1,18 +1,19 @@
 /* Toggle Component */
 /* On / Off toggle */
-.main-toggle{
+.main-toggle {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.main-toggle .toggle-title{
+.main-toggle .toggle-title {
     color: black;
-    
+
 }
-.toggle-btn{
+
+.toggle-btn {
     background-color: #b7b9ba;
-    border: 1px solid #aaa;
+    border: 2px solid #aaa;
     border-radius: 8px;
     transition: background-color 0.1s ease, border-color 0.2s ease;
     width: 50px;
@@ -22,12 +23,12 @@
     position: relative;
 }
 
-.toggle-btn .thumb{
-    height: 26px;
+.toggle-btn .thumb {
+    height: 24px;
     width: 25px;
     background-color: #fff;
     border-radius: 7px;
-    transform:translateX(0);
+    transform: translateX(0);
     transition: left 0.15s ease;
     position: absolute;
     left: 0px;
@@ -35,35 +36,39 @@
     transform: translateY(-50%);
 }
 
-.toggle-btn.toggled{
+.toggle-btn.toggled {
     background-color: #15b58e;
 }
 
-.toggle-btn:hover{
+.toggle-btn:hover {
     border-color: #6f6f6f;
 }
 
-.toggle-btn.toggled .thumb{
-    left: calc(50px - 27px);
+.toggle-btn.toggled .thumb {
+    left: calc(50px - 29px);
 }
 
 
 
 
 /*Text Field*/
-.normal-textField{
+.normal-textField {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 40px;
 }
-.normal-textField .textField-title{
+
+.normal-textField .textField-title {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(49, 49, 49);
+    font-family: monospace Arial;
+    font-size: 1.2rem;
 }
-.normal-textField input{
+
+.normal-textField input {
     display: block;
-    height: 30px;
+    height: 100%;
     width: 100%;
     color: rgb(65, 65, 65);
     border-radius: 5px;
@@ -71,13 +76,17 @@
     border: 2px solid #e0e0e0;
     padding-left: 5px;
     outline: none;
+    font-size: 1.5rem;
+    font-family: monospace;
 }
-.normal-textField input::placeholder{
+
+.normal-textField input::placeholder {
     padding-left: 10px;
     transition: 0.2s ease;
     transform: translateY(0%);
 }
-.normal-textField input:focus::placeholder{
+
+.normal-textField input:focus::placeholder {
     padding-left: 10px;
     transition: 0.2s ease;
     transform: translateY(-60%);
@@ -85,8 +94,27 @@
     opacity: 0;
 }
 
-.normal-textField input:focus{
+.normal-textField input:focus {
     border: 2px solid #5bace2;
     border-color: #5bace2;
     border-radius: 5px;
+}
+
+.base-btn {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    border: none;
+    background-color: #5b8de9;
+    border-radius: 12px;
+}
+
+.base-btn:hover {
+    color: #ffffff;
+    font-size: 16px;
+    border: 5px solid #5380d4;
+    transition: 0.2s;
+    background-color: #6c9cf5;
 }

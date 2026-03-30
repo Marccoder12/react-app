@@ -1,19 +1,22 @@
-:root{
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    color: rgba(255, 255, 255, 0.87);    
+@import "tailwindcss";
+
+* {
+    /* outline: none;
+    border: none; */
 }
 
-body
-#root{
-    width:100%;
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+body #root {
+    width: 100%;
+    height: 100vh;
     color: black;
 }
 
-.App{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width:100%;
+.App {
+    height: 100%;
+    width: 100%;
 }
-

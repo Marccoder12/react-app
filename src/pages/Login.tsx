@@ -1,5 +1,6 @@
-import { LogInModalForm } from "../features/SignUpPage copy/components/LogInModalForm";
+import { LogInModalForm } from "../features/LoginUpPage/components/LogInModalForm";
 import "../styles/logIn.css";
+
 export function Login() {
   return (
     <main className="logIn">
