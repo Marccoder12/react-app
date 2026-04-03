@@ -10,6 +10,7 @@ export default function SideNav() {
       >
         <AccountToggle />
         <RouteSelect />
+        <div className="bg-blue-300 h-[200px] w-full p-4 rounded">Ad</div>
       </div>
       <Plan />
     </div>

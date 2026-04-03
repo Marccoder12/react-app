@@ -17,7 +17,8 @@ import { TaskContent } from "./features/TaskPage/TaskContent";
 import { StatsContent } from "./features/StatsPage/StatsContent";
 import { DashBoardContent } from "./features/DashBoardPage/DashboardContent";
 import { SettingsContent } from "./features/SettingsPage/components/SettingsContent";
-// import { UserPageContent } from "./features/UserPage/components/UserPageContent";
+import { UserPageContent } from "./features/UserPage/components/UserPageContent";
+import { FineTaskItem } from "./features/FineTaskPage/FinetaskItem";
 // Your main App
 function App() {
   return (
@@ -32,24 +33,21 @@ function App() {
               <Route element={<Home />} path="/home">
                 <Route path="dashboard" element={<DashBoardContent />}>
                   <Route
-                    index
-                    path="finetask"
+                    index={true}
+                    path="finetasks"
                     element={<FineTaskContent />}
                   ></Route>
-                  <Route path="task" element={<TaskContent />}></Route>
+                  <Route path="tasks" element={<TaskContent />}></Route>
                 </Route>
-                <Route path="Stats" element={<StatsContent />}></Route>
-                <Route path="Settings" element={<SettingsContent />}></Route>
-                {/* <Route path="User" element={<UserPageContent />}></Route> */}
+                <Route path="stats" element={<StatsContent />}></Route>
+                <Route path="settings" element={<SettingsContent />}></Route>
+                <Route path="user" element={<UserPageContent />}></Route>
               </Route>
             </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-      {/* <SignUp></SignUp> */}
-      {/* <Toggle></Toggle>
-      <Message name={"Hello"}></Message>
-      <InputField title="Name" placeholderText="Enter name here"></InputField> */}
+     
     </div>
   );
 }

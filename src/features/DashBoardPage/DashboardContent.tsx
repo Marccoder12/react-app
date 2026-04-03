@@ -1,11 +1,13 @@
-import { FineTaskContent } from "../FineTaskPage/FineTaskContent";
+import { Outlet } from "react-router-dom";
+
 import { ViewOpt } from "./components/ViewOpt";
+import { DashboardPanel } from "./components/DashboardPanel";
 
 export const DashBoardContent = () => {
   return (
     <>
       <ViewOpt></ViewOpt>
-      <FineTaskContent></FineTaskContent>
+      <DashboardPanel />
     </>
   );
 };

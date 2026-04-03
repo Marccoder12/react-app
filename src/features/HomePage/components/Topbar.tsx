@@ -11,17 +11,17 @@ export const Topbar = ({ name }: { name: string }) => {
           <span className="text-sm font-bold block">Good Morning {name}</span>
           <span className="text-xs block text-stone-500">Today is: </span>
         </div>
-        <button className="flex text-sm items-center gap-2 bg-stone-100 transition-colors hover:bg-violet-100 hover:text-blue-700 px-3 py-1.5 rounded">
+        {/* <button className="flex text-sm items-center gap-2 bg-stone-100 transition-colors hover:bg-violet-100 hover:text-blue-700 px-3 py-1.5 rounded">
           <FiCalendar />
           <span>Prev 6 Months</span>
-        </button>
-        <button
+        </button> */}
+        {/* <button
           onClick={signOut}
           className="flex text-sm items-center gap-2 bg-stone-100 transition-colors hover:bg-violet-100 hover:text-blue-700 px-3 py-1.5 rounded"
         >
           <FiLogOut />
           <span>Sign Out</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );

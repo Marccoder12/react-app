@@ -43,9 +43,9 @@ export function LogInModalForm() {
       //(use react-router navigate if you have it, or window.location)
       // window.location.href = "/welcome?justSignedUp=true";
       // window.location.href = "/";
-      navigate("/home");
+      navigate("/home/dashboard/finetasks");
     } catch (err: any) {
-      console.log(err.message || "SignUp failed. Please try again.");
+      console.log(err.message || "LogIn failed. Please try again.");
       //Still clear passwords even on the error(good practice)
       setPassword("");
     }
