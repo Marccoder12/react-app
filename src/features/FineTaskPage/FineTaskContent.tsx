@@ -5,6 +5,7 @@ import Modal from "./components/Modal";
 import { FineTaskItem } from "./FinetaskItem";
 import { BankSelector } from "./components/BankSelector";
 import { getBanks } from "./services/getBanks";
+import { EditContent } from "./components/EditContent";
 
 export const FineTaskContent = () => {
   const [finetasks, setFineTasks] = useState([]);
@@ -13,8 +14,87 @@ export const FineTaskContent = () => {
   return (
     <main className="flex flex-row gap-4 h-full w-full p-4">
       {/* List Section */}
-      <div className="bg-white shadow border-2 border-stone-100 h-full w-4/6 rounded-xl relative">
-        <div className="absolute bottom-4 right-5 z-10">
+      <div className="bg-white shadow border-2 p-6 border-stone-100 h-full w-4/6 rounded-xl relative">
+        <ul className="absolute w-14/15 h-11/12 overflow-hidden overflow-y-scroll space-y-4">
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+          <FineTaskItem
+            currency={`\u20A6`}
+            dueDate="12/04/2026"
+            price={1200}
+            title="Buy Eggs"
+            taskId="023031"
+          />
+        </ul>
+        <div className="absolute bottom-12 right-12 z-10">
           <CreateFineTask openModal={() => setOpen(true)} />
           <Modal open={open} onClose={() => setOpen(false)} />
           {/* task list
@@ -38,12 +118,13 @@ export const FineTaskContent = () => {
             {" "}
             GET BANKS
           </button> */}
-          <ol></ol>
         </div>
       </div>
 
       {/* Edit Section */}
-      <div className="bg-white shadow border-2 border-stone-100 h-full flex-1 rounded-xl"></div>
+      <div className="bg-white shadow border-2 border-stone-100 h-full flex-1 rounded-xl">
+        <EditContent title="Buy Eggs" isEmpty={true} />
+      </div>
     </main>
   );
 };

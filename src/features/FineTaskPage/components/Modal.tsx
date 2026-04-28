@@ -1,6 +1,8 @@
-import { FormEvent, useEffect, useState } from "react";
-import { FiCheckCircle, FiX } from "react-icons/fi";
+import { FormEvent, useEffect, useState, useRef } from "react";
+import { FiCheckCircle, FiChevronDown, FiX } from "react-icons/fi";
 import { supabase } from "../../../lib/supabase/client";
+import { GiBank } from "react-icons/gi";
+import { useToast } from "../../../context/ToastContext";
 
 type Bank = {
   code: string;
@@ -31,7 +33,9 @@ const BankSelector = ({
         className="flex items-center gap-2 rounded-xl border gorder-grey 300 bg-white px-4 py-3 focus-witin:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200 transition-all cursor-text"
         onClick={() => setOpen(true)}
       >
-        <span className="text-gray-400">🏦</span>
+        <span className="text-gray-400">
+          <GiBank />
+        </span>
         <input
           type="text"
           value={selectedBank ? selectedBank.name : query}
@@ -39,11 +43,15 @@ const BankSelector = ({
             setQuery(e.target.value);
             if (!open) setOpen(true);
           }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => {
+            setOpen(true);
+          }}
           placeholder="Search bank Name..."
           className="flex-1 bg-transparent outlne-none text-sm placeholder:text-grat-400"
         />
-        <span className="text-gray-400 text-xl leading-none">\/</span>
+        <span className="text-gray-400 text-xl leading-none">
+          <FiChevronDown />
+        </span>
       </div>
       {open && (
         <div className="absolute z-50 mt-2 w-full rounded-2xl border border-gray-200 bg-white shadow-xl max-h-72 overflow-auto py-2">
@@ -94,7 +102,7 @@ export default function Modal({ open, onClose }: Props) {
     //Stage 2
     bank_code: string;
     bank_name: string;
-    acc_num: number | null;
+    acc_num: string | null;
     resolved_account_name: string;
     //Stage 3
     pin: number | null;
@@ -114,16 +122,49 @@ export default function Modal({ open, onClose }: Props) {
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [stage, setStage] = useState<"first" | "second" | "last">("first");
+  const [inputPin, setInputPin] = useState(["", "", "", ""]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleChange = (index: number, value: string) => {
+    if (/^\d*$/.test(value) && value.length <= 1) {
+      // check the character is entered not / Only digits allowed
+      const newPin = [...inputPin];
+      newPin[index] = value;
+      setInputPin(newPin);
+
+      if (value && index < inputPin.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Backspace" && !inputPin[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handlePinSet = () => {
+    const enteredPin = inputPin.join("");
+    if (enteredPin.length === 4) {
+      //show success message
+    } else {
+      // show error message
+    }
+  };
 
   const [banks, setBanks] = useState<Bank[]>([]);
   const [isValidating, setIsValidating] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
-
+  const addToast = useToast();
   useEffect(() => {
     const fetchBanks = async () => {
       const { data, error } = await supabase.functions.invoke("get-banks");
       if (error) console.error("Failed to load banks", error);
-      else if (Array.isArray(data)) setBanks(data || []);
+      setBanks(data || []);
     };
     fetchBanks();
   }, []);
@@ -144,7 +185,7 @@ export default function Modal({ open, onClose }: Props) {
           {
             body: {
               account_number: formData.acc_num,
-              bank_code: formData.bank_code,
+              bank_code: Number(formData.bank_code),
             },
           },
         );
@@ -176,6 +217,7 @@ export default function Modal({ open, onClose }: Props) {
   // });
 
   const clearAllData = () => {
+    setInputPin(["", "", "", ""]);
     setFormData({ ...initialFormData });
     setStage("first");
   };
@@ -191,11 +233,17 @@ export default function Modal({ open, onClose }: Props) {
   };
   const enterAccountStage = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formData.title && !formData.price) {
-      console.log("Fill [TITLE] and [PRICE] fields!");
+    if (
+      formData.title.length > 0 &&
+      formData.price !== null &&
+      formData.price.toString().length > 0
+    ) {
+      setStage("second");
+      return;
+    } else {
+      addToast("error", "Fill in Title and Price fields");
       return;
     }
-    setStage("second");
   };
 
   const enterSecurityStage = async (e: FormEvent) => {
@@ -206,7 +254,7 @@ export default function Modal({ open, onClose }: Props) {
           (formData.price !== null && formData.price <= 0))) ||
       formData.acc_num?.toString().length != 10
     ) {
-      console.log("Invalid FineTask Details");
+      addToast("error", "Invalid Finetask Details");
       return;
     }
     setStage("last");
@@ -217,18 +265,17 @@ export default function Modal({ open, onClose }: Props) {
 
     if (stage == "first") {
       if (formData.price != null && formData.price <= 0)
-        console.log(`${formData.price}-Set A valid PRICE for this task`);
+        addToast("error", `${formData.price}-Set a valid price for this task`);
 
       if (
         formData.acc_num != null &&
         (formData.acc_num.toString().length < 10 ||
           formData.acc_num.toString().length > 10)
       ) {
-        console.log("not a valid account Number");
+        setStage("second");
+        addToast("error", "not a valid account number");
         return;
       }
-
-      setStage("second");
     }
   };
   return (
@@ -242,17 +289,21 @@ export default function Modal({ open, onClose }: Props) {
       {/* modal box */}
       <div className="relative bg-white rounded-xl z-10 w-96 shadow-lg">
         {/* header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-lg font-semibold">Create Task</h2>
-          <button
-            className="text-gray-500 hover:text-gray-700 hover:cursor-pointer transition-colors"
-            onClick={() => handleClose()}
-          >
-            <FiX size={20} />
-          </button>
+        <div className="flex items-center justify-between relative p-6 border-b border-gray-200">
+          <div className=" relative pl-30">
+            <h2 className="text-lg font-semibold">Create Task</h2>
+          </div>
+          <div className="justify-self-end">
+            <button
+              className="text-gray-500 hover:text-gray-700 hover:cursor-pointer transition-colors"
+              onClick={() => handleClose()}
+            >
+              <FiX size={20} />
+            </button>
+          </div>
         </div>
         <div className="relative">
-          <div className={`bg-stone-200  mt-1 h-0.5 w-[calc(50%-10px)`}></div>
+          <div className={`bg-stone-200 h-0.5 w-[calc(50%-10px)`}></div>
           <div
             className={`
             ${
@@ -263,20 +314,24 @@ export default function Modal({ open, onClose }: Props) {
                   : "bg-blue-400 -mt-0.5 h-0.5 w-0"
             }`}
           ></div>
-          <FiCheckCircle
-            className={`absolute left-40 -top-2 
-            ${
-              stage === "second"
-                ? "text-blue-400"
-                : stage === "last"
+          <div
+            className={`absolute bg-white left-40 -top-2 
+              ${
+                stage === "second"
                   ? "text-blue-400"
-                  : "text-stone-300"
-            } `}
-          ></FiCheckCircle>
-          <FiCheckCircle
-            className={`absolute left-90 -top-2 
-            ${stage === "last" ? "text-blue-400" : "text-stone-300"}`}
-          ></FiCheckCircle>
+                  : stage === "last"
+                    ? "text-blue-400"
+                    : "text-stone-300"
+              } `}
+          >
+            <FiCheckCircle></FiCheckCircle>
+          </div>
+          <div
+            className={`absolute bg-white left-90 -top-2 
+              ${stage === "last" ? "text-blue-400" : "text-stone-300"}`}
+          >
+            <FiCheckCircle></FiCheckCircle>
+          </div>
         </div>
 
         {/* form content */}
@@ -301,13 +356,14 @@ export default function Modal({ open, onClose }: Props) {
           <div>
             <span className="font-bold text-2xl">Price</span>
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
               placeholder="Task Price..."
               onChange={(e) =>
                 setFormData((prev) => ({
                   ...prev,
                   price:
-                    e.target.value === "" ? null : parseFloat(e.target.value),
+                    e.target.value === "" ? null : parseInt(e.target.value),
                 }))
               }
               value={formData.price ?? ""}
@@ -318,7 +374,7 @@ export default function Modal({ open, onClose }: Props) {
           <div className="border-t-2 border-stone-200"></div>
           <div className="flex justify-center">
             <button
-              className="bg-blue-400 p-2 pl-8 pr-8 rounded hover:cursor-pointer  text-white font-bold active:transisition-colors active:bg-blue-500"
+              className="bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-8 pr-8 rounded hover:cursor-pointer  text-white font-bold active:transisition-colors active:bg-blue-500"
               type="button"
               onClick={enterAccountStage}
             >
@@ -334,41 +390,71 @@ export default function Modal({ open, onClose }: Props) {
           ${stage === "second" ? "block" : "hidden"}`}
           >
             <div>
-              <span className="font-bold text-2xl">Account Number</span>
-              <input
-                type="number"
-                placeholder="Recipient Account Number..."
-                onChange={(e) =>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Bank
+              </label>
+              <BankSelector
+                banks={banks}
+                selectedCode={formData.bank_code}
+                onSelect={(code, name) => {
                   setFormData((prev) => ({
                     ...prev,
-                    acc_num:
-                      e.target.value === "" ? null : parseInt(e.target.value),
-                  }))
-                }
-                value={formData.acc_num ?? ""}
-                className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    bank_code: code,
+                    bank_name: name,
+                    resolved_account_name: "",
+                  }));
+                }}
               />
             </div>
+            {/* Account Number + live validation */}
             <div>
-              <span className="font-bold text-2xl">Bank</span>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Account Number (10 digit)
+              </label>
+              {/* <span className="font-bold text-2xl">Account Number</span> */}
               <input
                 type="text"
-                placeholder="Bank Name..."
-                onChange={(e) =>
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={10}
+                value={formData.acc_num ?? ""}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "");
                   setFormData((prev) => ({
                     ...prev,
-                    bank_name: e.target.value,
-                  }))
-                }
-                value={formData.bank_name}
-                className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    acc_num: val === "" ? null : val,
+                  }));
+                }}
+                className="w-full rounded-xl border overflow-hidden border-gray-300 px-4 py-3 text-lg tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                placeholder="00000000"
               />
-            </div>
+              {isValidating && (
+                <div className="mt-3 text blue-600 text-sm flex items-center gap-2">
+                  <span className="animate-spin">
+                    <FiCheckCircle />
+                  </span>
+                  Validating with Flutterwave...
+                </div>
+              )}
 
+              {formData.resolved_account_name && !isValidating && (
+                <div className="mt-3 bg-emerald-50 border-emerald-200 rounded-xl px-4 py-3 text-emerald-700 text-sm flex items-center gap-2">
+                  Account Name:{" "}
+                  <span className="font-semibold">
+                    {formData.resolved_account_name}
+                  </span>
+                </div>
+              )}
+              {validationError && (
+                <div className="mt-3 bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-red-600 text-sm">
+                  ❌{validationError}
+                </div>
+              )}
+            </div>
             <div className="border-t-2 border-stone-200"></div>
             <div className="flex justify-around">
               <button
-                className="bg-blue-400 p-2 pl-8 pr-8 rounded hover:cursor-pointer  text-white font-bold active:transisition-colors active:bg-blue-500"
+                className="bg-blue-400 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-8 pr-8 rounded hover:cursor-pointer  text-white font-bold active:transisition-colors active:bg-blue-500"
                 onClick={enterFirstStage}
               >
                 Back
@@ -389,9 +475,29 @@ export default function Modal({ open, onClose }: Props) {
           ${stage === "last" ? "block" : "hidden"}`}
           onSubmit={handleSubmit}
         >
-          <div>
-            <span className="font-bold text-2xl">Account Number</span>
-            <input
+          <div className="gap-y-2">
+            <span className="font-bold text-gray-800 text-2xl">
+              Verify Task
+            </span>
+            <div
+              className="flex flex-col justify-between gap-8"
+              onSubmit={handlePinSet}
+            >
+              <div className="flex justify-around gap-x-2">
+                {inputPin.map((digit, index) => (
+                  <input
+                    type="text"
+                    key={index}
+                    maxLength={4}
+                    value={digit}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    className="w-14  h-14 text-center text-indigo-500 text-lg font-bold bg-transparent border border-blue-800 rounded-lg outline-none focus:border-indigo-500/40 focus:bg-indigo-500/5  transition-all"
+                  />
+                ))}
+              </div>
+              {/* <input
               type="number"
               placeholder="Pin..."
               onChange={(e) =>
@@ -402,11 +508,12 @@ export default function Modal({ open, onClose }: Props) {
               }
               value={formData.pin ?? ""}
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            /> */}
+            </div>
           </div>
           <div className="border-t-2 border-stone-200"></div>
           <div className="flex justify-center">
-            <button className="bg-blue-400 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
+            <button className="bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
               Create
             </button>
           </div>

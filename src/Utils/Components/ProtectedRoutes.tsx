@@ -11,9 +11,17 @@ export default function ProtectedRoutes() {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-screen">
-        Loading...
-      </div>
+      <>
+        {/* <div className="text-blue-400">Loading...</div> */}
+        {/* <img
+          src={
+            "/assets/logo.png"
+          }
+        /> */}
+        <div className="flex items-center justify-center h-screen">
+          <div className=" w-5 h-5 bg-blue-600 animate-ping"></div>
+        </div>
+      </>
     );
 
   //If not looged in -> send to login

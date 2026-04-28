@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Plan = () => {
   return (
     <div
@@ -9,9 +11,12 @@ export const Plan = () => {
           <p className="font-bold">Basic</p>
           <p className="text-stone-500">Pay as you Go</p>
         </div>
-        <button className="px-2 py-1.5 font-medium bg-blue-300 hover:bg-blue-400 transition-colors rounded">
-          Support
-        </button>
+        <Link
+          to={"/subscription"}
+          className="px-2 py-1.5 font-medium bg-blue-400 hover:bg-blue-300 transition-colors rounded"
+        >
+          Upgrade
+        </Link>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         //Auto-redirect examples
         if (event === "SIGNED_OUT") navigate("/auth/login");
         if (event === "SIGNED_IN" && window.location.pathname === "/auth/login")
-          navigate("/dashboard");
+          navigate("/home/dashboard/finetasks");
       },
     );
 
