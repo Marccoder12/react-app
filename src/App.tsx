@@ -16,6 +16,7 @@ import { FineTaskContent } from "./features/FineTaskPage/FineTaskContent";
 import { TaskContent } from "./features/TaskPage/TaskContent";
 import { StatsContent } from "./features/StatsPage/StatsContent";
 import { DashBoardContent } from "./features/DashBoardPage/DashboardContent";
+import DemoContent from "./features/DemoWelcomePage/DemoContent";
 import { SettingsContent } from "./features/SettingsPage/components/SettingsContent";
 import { UserPageContent } from "./features/UserPage/components/UserPageContent";
 import { FineTaskItem } from "./features/FineTaskPage/FinetaskItem";
@@ -30,6 +31,7 @@ function App() {
         <ToastProvider>
           <AuthProvider>
             <Routes>
+              <Route element={<DemoContent />} path="/"/>
               <Route element={<SignUp />} path="/auth/register"></Route>
               <Route element={<Login />} path="/auth/login" />
               <Route element={<Welcome />} path="/welcome" />
