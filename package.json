@@ -11,7 +11,6 @@
   "dependencies": {
     "@paystack/inline-js": "^2.22.7",
     "@supabase/supabase-js": "^2.99.2",
-    "crypto": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-dom": "^1.0.2",
