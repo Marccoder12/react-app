@@ -1,14 +1,15 @@
 import { useState, FormEvent } from "react";
-import { Toggle, InputField, Button } from "../../../components/SmallComps";
+import { Toggle, InputField, Button, InputFieldWithToggle } from "../../../components/SmallComps";
 import "../Styles/LogInModal.css";
 import { supabase } from "../../../lib/supabase/client";
 import { Link, useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export function LogInModalForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -68,8 +69,7 @@ export function LogInModalForm() {
             placeholderText=""
             onChange={setPassword}
             value={password}
-            type="password"
-          />
+            type="password"/>
           {/* <Toggle name="Remember Me?" onToggle={setRememberMe} /> */}
         </div>
         <Button btype="submit" title="Log In" />

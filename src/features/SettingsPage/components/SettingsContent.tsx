@@ -5,7 +5,7 @@ import { useToast } from "../../../context/ToastContext";
 import { ChangePinModal, SetPinModal, VerifyOTPModal } from "./PinModal";
 export const SettingsContent = () => {
   const [hasPin, setHasPin] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [pinModelIndex, setPinModalIndex] = useState(0); // 0: closed, 1: set pin, 2: change pin
   const { signOut, user } = useAuth();
   const addToast = useToast();

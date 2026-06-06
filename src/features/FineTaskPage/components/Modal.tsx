@@ -3,6 +3,7 @@ import { FiCheckCircle, FiChevronDown, FiX } from "react-icons/fi";
 import { supabase } from "../../../lib/supabase/client";
 import { GiBank } from "react-icons/gi";
 import { useToast } from "../../../context/ToastContext";
+import { FineTask } from "../../../Utils/types";
 
 type Bank = {
   code: string;
@@ -24,8 +25,8 @@ const BankSelector = ({
 
   const selectedBank = banks.find((b) => b.code === selectedCode);
   const filteredBanks = banks.filter((bank) =>
-    bank.name.toLowerCase().includes(query.toLowerCase()),
-  );
+    bank.name.toLowerCase().includes(query.toLowerCase())
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="relative w-full">
@@ -41,13 +42,15 @@ const BankSelector = ({
           value={selectedBank ? selectedBank.name : query}
           onChange={(e) => {
             setQuery(e.target.value);
+            onSelect("", "");
             if (!open) setOpen(true);
           }}
-          onFocus={() => {
+          onFocus={(e) => {
             setOpen(true);
+            setQuery("");
           }}
           placeholder="Search bank Name..."
-          className="flex-1 bg-transparent outlne-none text-sm placeholder:text-grat-400"
+          className="flex-1 p-1 text-md bg-transparent outlne-none text-sm placeholder:text-grat-400"
         />
         <span className="text-gray-400 text-xl leading-none">
           <FiChevronDown />
@@ -91,27 +94,16 @@ const BankSelector = ({
 type Props = {
   open: boolean;
   onClose: () => void;
+  onTaskCreated: () => void;
 };
 
-export default function Modal({ open, onClose }: Props) {
-  type FormData = {
-    //Stage 1
-    title: string;
-    price: number | null;
-    due_date: string;
-    //Stage 2
-    bank_code: string;
-    bank_name: string;
-    acc_num: string | null;
-    resolved_account_name: string;
-    //Stage 3
-    pin: number | null;
-    // auto_pay: boolean;
-  };
+export default function Modal({ open, onClose, onTaskCreated }: Props) {
 
-  const initialFormData: FormData = {
+
+  const initialFineTask: FineTask = {
+    id: "",
     title: "",
-    price: null,
+    amount: null,
     due_date: "",
     bank_code: "",
     bank_name: "",
@@ -120,10 +112,21 @@ export default function Modal({ open, onClose }: Props) {
     pin: null,
   };
 
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [fineTask, setfineTask] = useState<FineTask>(initialFineTask);
   const [stage, setStage] = useState<"first" | "second" | "last">("first");
   const [inputPin, setInputPin] = useState(["", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  
+  const [banks, setBanks] = useState<Bank[]>([]);
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const addToast = useToast();
+
+  //verifying task creation states
+  const [creating, setCreating] = useState(false);
+
+
 
   const handleChange = (index: number, value: string) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
@@ -147,19 +150,40 @@ export default function Modal({ open, onClose }: Props) {
     }
   };
 
-  const handlePinSet = () => {
+
+  const handlePinSet = async () => {
     const enteredPin = inputPin.join("");
-    if (enteredPin.length === 4) {
+    try{
+      setCreating(true);
+
+      if (enteredPin.length === 4) {
+        
+        const { data, error } = await supabase.functions.invoke(
+          "pin_management",
+          {
+            body: {
+              pin: enteredPin,
+              form_data: fineTask,
+            },
+          },
+        );
+        if(error){
+          throw error;
+        }
+
+        if(data.success){
+          clearAllData();
+          onClose();
+        }
       //show success message
-    } else {
-      // show error message
+      } else {
+        // show error message
+        addToast("error", "Invalid PIN. Please try again.");
+      }
+    }finally{
+      setCreating(false);
     }
   };
-
-  const [banks, setBanks] = useState<Bank[]>([]);
-  const [isValidating, setIsValidating] = useState(false);
-  const [validationError, setValidationError] = useState<string | null>(null);
-  const addToast = useToast();
   useEffect(() => {
     const fetchBanks = async () => {
       const { data, error } = await supabase.functions.invoke("get-banks");
@@ -172,9 +196,9 @@ export default function Modal({ open, onClose }: Props) {
   useEffect(() => {
     if (
       stage === "second" &&
-      formData.acc_num != null &&
-      formData.acc_num.toString().length === 10 &&
-      formData.bank_code
+      fineTask.acc_num != null &&
+      fineTask.acc_num.toString().length === 10 &&
+      fineTask.bank_code
     ) {
       const validate = async () => {
         setIsValidating(true);
@@ -184,8 +208,8 @@ export default function Modal({ open, onClose }: Props) {
           "resolve-account",
           {
             body: {
-              account_number: formData.acc_num,
-              bank_code: Number(formData.bank_code),
+              account_number: fineTask.acc_num,
+              bank_code: fineTask.bank_code,
             },
           },
         );
@@ -194,9 +218,9 @@ export default function Modal({ open, onClose }: Props) {
 
         if (error || !data?.account_name) {
           setValidationError("Could not verify account. Please check details");
-          setFormData((prev) => ({ ...prev, resolved_account_name: "" }));
+          setfineTask((prev) => ({ ...prev, resolved_account_name: "" }));
         } else {
-          setFormData((prev) => ({
+          setfineTask((prev) => ({
             ...prev,
             resolved_account_name: data.account_name,
           }));
@@ -204,7 +228,7 @@ export default function Modal({ open, onClose }: Props) {
       };
       validate();
     }
-  }, [formData.acc_num, formData.bank_code, stage]);
+  }, [fineTask.acc_num, fineTask.bank_code, stage]);
 
   //   useEffect(() => {
   //   getBanks().then(setBanks);
@@ -218,7 +242,7 @@ export default function Modal({ open, onClose }: Props) {
 
   const clearAllData = () => {
     setInputPin(["", "", "", ""]);
-    setFormData({ ...initialFormData });
+    setfineTask({ ...initialFineTask });
     setStage("first");
   };
 
@@ -232,11 +256,14 @@ export default function Modal({ open, onClose }: Props) {
     setStage("first");
   };
   const enterAccountStage = async (e: FormEvent) => {
+
     e.preventDefault();
+    
+    console.log(fineTask.due_date);
     if (
-      formData.title.length > 0 &&
-      formData.price !== null &&
-      formData.price.toString().length > 0
+      fineTask.title.length > 0 &&
+      fineTask.amount !== null &&
+      fineTask.amount.toString().length > 0
     ) {
       setStage("second");
       return;
@@ -249,10 +276,10 @@ export default function Modal({ open, onClose }: Props) {
   const enterSecurityStage = async (e: FormEvent) => {
     e.preventDefault();
     if (
-      (!formData.title &&
-        (!formData.price ||
-          (formData.price !== null && formData.price <= 0))) ||
-      formData.acc_num?.toString().length != 10
+      (!fineTask.title &&
+        (!fineTask.amount ||
+          (fineTask.amount !== null && fineTask.amount <= 0))) ||
+      fineTask.acc_num?.toString().length != 10
     ) {
       addToast("error", "Invalid Finetask Details");
       return;
@@ -264,18 +291,56 @@ export default function Modal({ open, onClose }: Props) {
     e.preventDefault();
 
     if (stage == "first") {
-      if (formData.price != null && formData.price <= 0)
-        addToast("error", `${formData.price}-Set a valid price for this task`);
+      if (fineTask.amount != null && fineTask.amount <= 0)
+        addToast("error", `${fineTask.amount}-Set a valid price for this task`);
 
       if (
-        formData.acc_num != null &&
-        (formData.acc_num.toString().length < 10 ||
-          formData.acc_num.toString().length > 10)
+        fineTask.acc_num != null &&
+        (fineTask.acc_num.toString().length < 10 ||
+          fineTask.acc_num.toString().length > 10)
       ) {
         setStage("second");
         addToast("error", "not a valid account number");
         return;
       }
+    }
+  };
+
+
+  const handleCreateTask = async () => {
+    const enteredPin = inputPin.join("");
+    try{
+      setCreating(true);
+
+      if (enteredPin.length === 4) {
+        
+        const { data, error } = await supabase.functions.invoke(
+          "create-finetask",
+          {
+            body: {
+              pin: enteredPin,
+              form_data: fineTask,
+            },
+          },
+        );
+        if(error){
+          addToast("error", error.message || "Failed to create task");
+          return;
+        }
+        onTaskCreated();
+          clearAllData();
+          onClose();
+
+      //show success message
+      } else {
+        // show error message
+      }
+    }
+    catch(error){
+      console.error("Error creating task:", error);
+    }
+    finally{
+      setCreating(false);
     }
   };
   return (
@@ -347,26 +412,42 @@ export default function Modal({ open, onClose }: Props) {
               type="text"
               placeholder="Task Title..."
               onChange={(e) =>
-                setFormData((prev) => ({ ...prev, title: e.target.value }))
+                setfineTask((prev) => ({ ...prev, title: e.target.value }))
               }
-              value={formData.title}
+              value={fineTask.title}
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
             <span className="font-bold text-2xl">Price</span>
             <input
-              type="text"
+              type="number"
               inputMode="numeric"
               placeholder="Task Price..."
               onChange={(e) =>
-                setFormData((prev) => ({
+                setfineTask((prev) => ({
                   ...prev,
-                  price:
+                  amount:
                     e.target.value === "" ? null : parseInt(e.target.value),
                 }))
               }
-              value={formData.price ?? ""}
+              value={fineTask.amount ?? ""}
+              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <span className="font-bold text-2xl">Due Date</span>
+            <input
+              type="datetime-local"
+              placeholder="Task due date..."
+              onChange={(e) =>
+                setfineTask((prev) => ({
+                  ...prev,
+                  due_date:
+                    e.target.value,
+                }))
+              }
+              value={fineTask.due_date ?? ""}
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -395,9 +476,9 @@ export default function Modal({ open, onClose }: Props) {
               </label>
               <BankSelector
                 banks={banks}
-                selectedCode={formData.bank_code}
+                selectedCode={fineTask.bank_code}
                 onSelect={(code, name) => {
-                  setFormData((prev) => ({
+                  setfineTask((prev) => ({
                     ...prev,
                     bank_code: code,
                     bank_name: name,
@@ -417,10 +498,10 @@ export default function Modal({ open, onClose }: Props) {
                 inputMode="numeric"
                 pattern="[0-9]*"
                 maxLength={10}
-                value={formData.acc_num ?? ""}
+                value={fineTask.acc_num ?? ""}
                 onChange={(e) => {
                   const val = e.target.value.replace(/\D/g, "");
-                  setFormData((prev) => ({
+                  setfineTask((prev) => ({
                     ...prev,
                     acc_num: val === "" ? null : val,
                   }));
@@ -437,11 +518,11 @@ export default function Modal({ open, onClose }: Props) {
                 </div>
               )}
 
-              {formData.resolved_account_name && !isValidating && (
+              {fineTask.resolved_account_name && !isValidating && (
                 <div className="mt-3 bg-emerald-50 border-emerald-200 rounded-xl px-4 py-3 text-emerald-700 text-sm flex items-center gap-2">
                   Account Name:{" "}
                   <span className="font-semibold">
-                    {formData.resolved_account_name}
+                    {fineTask.resolved_account_name}
                   </span>
                 </div>
               )}
@@ -473,7 +554,7 @@ export default function Modal({ open, onClose }: Props) {
         <form
           className={`p-6 space-y-4
           ${stage === "last" ? "block" : "hidden"}`}
-          onSubmit={handleSubmit}
+          onSubmit={handleCreateTask}
         >
           <div className="gap-y-2">
             <span className="font-bold text-gray-800 text-2xl">
@@ -487,6 +568,7 @@ export default function Modal({ open, onClose }: Props) {
                 {inputPin.map((digit, index) => (
                   <input
                     type="text"
+                    inputMode="numeric"
                     key={index}
                     maxLength={4}
                     value={digit}
@@ -501,24 +583,22 @@ export default function Modal({ open, onClose }: Props) {
               type="number"
               placeholder="Pin..."
               onChange={(e) =>
-                setFormData((prev) => ({
+                setfineTask((prev) => ({
                   ...prev,
                   pin: e.target.value === "" ? null : parseInt(e.target.value),
                 }))
               }
-              value={formData.pin ?? ""}
+              value={fineTask.pin ?? ""}
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             /> */}
             </div>
           </div>
           <div className="border-t-2 border-stone-200"></div>
-          <div className="flex justify-center">
-            <button className="bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
-              Create
+            <button disabled={creating} type="submit" onClick={handleCreateTask} className="bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
+              {creating ? "Creating..." : "Create Task"}
             </button>
-          </div>
         </form>
       </div>
     </div>
-  );
+  )
 }

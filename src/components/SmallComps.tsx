@@ -1,5 +1,7 @@
 import { ChangeEvent, EventHandler, MouseEventHandler, useState } from "react";
 import "../styles/smallComponents.css";
+import { FiEye } from "react-icons/fi";
+import { IconType } from "react-icons";
 
 export function Toggle({name, onToggle}: {name: string; onToggle?: (bit: boolean) => void;}) {
   const [toggled, setToggled] = useState(false);
@@ -35,6 +37,22 @@ export function InputField({title, placeholderText = "Enter", value, onChange, i
     <div className="normal-textField">
       <p className="textField-title">{title}</p>
       <input type={type} value={value} placeholder={placeholderText} onChange={handleChange} required={require}></input>
+    </div>
+  );
+}
+export function InputFieldWithToggle({title, placeholderText = "Enter", value, onChange, type = "text", showPassword = false, ClosedIcon, OpenIcon, require, }: InputFieldProps & { value: string, showPassword: boolean, OpenIcon: IconType, ClosedIcon: IconType}) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e.target.value); //notify Parent
+  };
+  return (
+    <div className="normal-textField">
+      <p className="textField-title">{title}</p>
+      <input type={type} value={value} placeholder={placeholderText} onChange={handleChange} required={require}>
+     <div className="bg-blue-500" onClick={() => showPassword = !showPassword}>
+      </div>
+      <OpenIcon/>
+      <ClosedIcon/>
+      </input>
     </div>
   );
 }

@@ -46,9 +46,8 @@ export const SetPinModal = ({ open, onClose }: Props) => {
           "pin_management",
           {
             body: {
-              action: "set_pin",
+              action: "SET",
               pin: enteredPin,
-              otp: null,
             },
           },
         );
