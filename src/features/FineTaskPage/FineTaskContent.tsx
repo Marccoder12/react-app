@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ViewOpt } from "../DashBoardPage/components/ViewOpt";
 import { CreateFineTask } from "./components/CreateFineTask";
 import Modal from "./components/Modal";
@@ -14,6 +14,9 @@ import { FineTaskEditContent } from "./components/FineTaskEditContent";
 
 export const FineTaskContent = () => {
   const [finetasks, setFineTasks] = useState<FineTask[]>([]);
+  const selectedFinetaskRef = useRef<FineTask | null>(null);
+  const [selectedFinetask, setSelectedFinetask] = useState<FineTask | null>(null);
+  const [selectedFinetaskId, setSelectedFinetaskId] = useState<string | null>(null);
   const [loadingTasks, setLoadingTasks] = useState(true);
   const [open, setOpen] = useState(false);
 
@@ -51,25 +54,33 @@ export const FineTaskContent = () => {
     // refresh task list
     fetchTasks();
   }
-
-  if(loadingTasks){
-    
+  const handleFinetaskSelected = (id: string) => {
+    setSelectedFinetaskId(id);    
+    console.log(selectedFinetaskId);
+    console.log(finetasks);
+    const task = finetasks?.find(t => String(t.id.trim()) === String(selectedFinetaskId?.trim()));
+        if(task){
+          setSelectedFinetask(task);
+          console.log(selectedFinetask);
   }
-
+  }
 
   return (
     <main className="grid grid-cols-5 gap-4 h-full w-full p-4">
       {/* List Section */}
       <div className="col-span-3">
-      <FineTaskListContent finetasks={finetasks} loading={loadingTasks} onParentModal={() => setOpen(true)} />
+      <FineTaskListContent  onFinetaskSelected={handleFinetaskSelected} finetasks={finetasks} 
+      loading={loadingTasks} onParentModal={() => setOpen(true)}
+       clearEditTask={() => setSelectedFinetask(null)}/>
+      </div>
+      {/* Edit Section */}
+      <div className="col-span-2">
+      <FineTaskEditContent fineTaskData={selectedFinetask} tasksEmpty={(finetasks.length === 0)}/>
       </div>
           <Modal open={open} onClose={() => setOpen(false)} onTaskCreated={handleTaskCreated} />
           
 
-      {/* Edit Section */}
-      <div className="col-span-2">
-      <FineTaskEditContent/>
-      </div>
     </main>
   );
-};
+}
+

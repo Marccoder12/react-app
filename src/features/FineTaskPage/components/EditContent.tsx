@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiSave, FiTrash } from "react-icons/fi";
 import { InputField } from "../../../components/SmallComps";
+import { FineTask } from "../../../Utils/types";
 
 export const EditContent = ({
-  title,
+  fineTask,
   isEmpty,
 }: {
-  title?: string;
+  fineTask?: FineTask | null;
   isEmpty?: boolean;
 }) => {
-  const [fineTask, setFineTask] = useState();
-  if (isEmpty) {
+  console.log(fineTask)
+  const [editFineTask, setEditFineTask] = useState<FineTask | null | undefined>(fineTask);
+  useEffect(() => {
+    setEditFineTask(fineTask);
+  }, [fineTask]);
+   if (isEmpty) {
     return (
       <div className="h-full w-full flex flex-col items-center justify-center">
         <div className="w-1/2 flex justify-center">
@@ -29,7 +34,7 @@ export const EditContent = ({
             <FiTrash/>
           </button>
         <div className="border-b-3 w-full flex justify-center align-center border-stone-200">
-          <span className="text-3xl p-2 font-bold text-center">{title}</span>
+          <span className="text-3xl p-2 font-bold text-center">{fineTask?.title}</span>
         </div>
         </div>
         <div className="w-full h-full flex flex-col">

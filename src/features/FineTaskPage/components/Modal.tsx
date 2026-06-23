@@ -108,8 +108,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
     bank_code: "",
     bank_name: "",
     acc_num: null,
-    resolved_account_name: "",
-    pin: null,
+    resolved_account_name: ""
   };
 
   const [fineTask, setfineTask] = useState<FineTask>(initialFineTask);
@@ -184,6 +183,8 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       setCreating(false);
     }
   };
+
+  // FETCHES THE BANKS
   useEffect(() => {
     const fetchBanks = async () => {
       const { data, error } = await supabase.functions.invoke("get-banks");
@@ -193,6 +194,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
     fetchBanks();
   }, []);
 
+  // RESOLVES ACCOUNT NAME AND DISPLAYS UNDER ACC NUM
   useEffect(() => {
     if (
       stage === "second" &&
@@ -287,24 +289,24 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
     setStage("last");
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
 
-    if (stage == "first") {
-      if (fineTask.amount != null && fineTask.amount <= 0)
-        addToast("error", `${fineTask.amount}-Set a valid price for this task`);
+  //   if (stage == "first") {
+  //     if (fineTask.amount != null && fineTask.amount <= 0)
+  //       addToast("error", `${fineTask.amount}-Set a valid price for this task`);
 
-      if (
-        fineTask.acc_num != null &&
-        (fineTask.acc_num.toString().length < 10 ||
-          fineTask.acc_num.toString().length > 10)
-      ) {
-        setStage("second");
-        addToast("error", "not a valid account number");
-        return;
-      }
-    }
-  };
+  //     if (
+  //       fineTask.acc_num != null &&
+  //       (fineTask.acc_num.toString().length < 10 ||
+  //         fineTask.acc_num.toString().length > 10)
+  //     ) {
+  //       setStage("second");
+  //       addToast("error", "not a valid account number");
+  //       return;
+  //     }
+  //   }
+  // };
 
 
   const handleCreateTask = async () => {
@@ -313,20 +315,31 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       setCreating(true);
 
       if (enteredPin.length === 4) {
+
+        console.log("before-invoke")
         
         const { data, error } = await supabase.functions.invoke(
           "create-finetask",
           {
             body: {
               pin: enteredPin,
-              form_data: fineTask,
+              form_data: {
+                title: fineTask.title,
+                price: fineTask.amount,
+                bank_code: fineTask.bank_code,
+                acc_num: fineTask.acc_num,
+                due_date: fineTask.due_date,
+              },
             },
           },
         );
-        if(error){
-          addToast("error", error.message || "Failed to create task");
-          return;
-        }
+            console.log("after-invoke")
+            if(error){
+              console.log("Error", error)
+              addToast("error", error.message || "Failed to create task");
+              return;
+            }
+            console.log("success", data)
         onTaskCreated();
           clearAllData();
           onClose();
@@ -345,14 +358,14 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
   };
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center transition-all duration-300
+      className={`fixed inset-0 flex items-center justify-center duration-300
       ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
     >
       {/* backdrop */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-all" />
 
       {/* modal box */}
-      <div className="relative bg-white rounded-xl z-10 w-96 shadow-lg">
+      <div className="relative bg-white rounded-xl z-10 w-96 shadow-lg transition-all">
         {/* header */}
         <div className="flex items-center justify-between relative p-6 border-b border-gray-200">
           <div className=" relative pl-30">
@@ -418,7 +431,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div>
+          <div className ="relative">
             <span className="font-bold text-2xl">Price</span>
             <input
               type="number"
@@ -434,6 +447,10 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
               value={fineTask.amount ?? ""}
               className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {/* Price Charge */}
+            {/* <div className="absolute right-8 -top-1 rounded-t-lg bg-yellow-200 px-3 py-1">
+              <span className="text-lg text-orange-400 font-bold"></span>
+            </div> */}
           </div>
           <div>
             <span className="font-bold text-2xl">Due Date</span>
@@ -552,7 +569,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
 
         {/* Last Stage */}
         <form
-          className={`p-6 space-y-4
+          className={`p-6 space-y-4 
           ${stage === "last" ? "block" : "hidden"}`}
           onSubmit={handleCreateTask}
         >
@@ -593,10 +610,12 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             /> */}
             </div>
           </div>
-          <div className="border-t-2 border-stone-200"></div>
-            <button disabled={creating} type="submit" onClick={handleCreateTask} className="bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
+          <div className="flex justify-center items-center border-t-2 border-stone-200">
+
+            <button disabled={creating} type="submit" onClick={handleCreateTask} className="justify-self bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
               {creating ? "Creating..." : "Create Task"}
             </button>
+          </div>
         </form>
       </div>
     </div>

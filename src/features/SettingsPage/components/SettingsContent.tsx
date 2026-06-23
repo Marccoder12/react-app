@@ -20,8 +20,10 @@ export const SettingsContent = () => {
           .eq("id", user.id)
           .maybeSingle();
 
-        if (error) throw error;
-
+        if (error){
+          setHasPin(null);
+          throw error;
+        }
         // If pin is null/empty -> no Pin set yet
         const isSet =
           data?.hashed_pin != null ||
@@ -46,7 +48,9 @@ export const SettingsContent = () => {
     if (!user) addToast("success", "User log Out successfully!");
   };
 
+
   if (loading) return <div className="p-6">Loading security settings...</div>;
+  if (hasPin == null) return <div className="p-6">Error no Network...</div>;
   return (
     <div className="flex flex-col gap-4 p-4">
       SettingsContent

@@ -3,7 +3,7 @@
     /* background-color: transparent; */
     width: 40%;
     height: 50%;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     border: 2px solid #dadada;
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    box-shadow: 0px 0px 15px rgba(41, 88, 168, 0.616);
+    box-shadow: 0px 0px 1px rgba(41, 88, 168, 0.616);
 }
 
 .logInModalForm .modalTitle {
@@ -61,7 +61,7 @@
 .logInBtn:hover {
     color: #ffffff;
     font-size: 16px;
-    border: 5px solid #5380d4;
+    border: 5px solid #608fe7;
     transition: 0.2s;
     background-color: #6c9cf5;
 }

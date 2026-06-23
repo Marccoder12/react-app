@@ -1,9 +1,10 @@
 import { FineTask } from "../../Utils/types";
 
-export const FineTaskItem = ({finetask, currency
+export const FineTaskItem = ({finetask, currency, onSelect
 }: {
   finetask: FineTask;
   currency: "N" | "$" | string;
+  onSelect: (id : string) => void;
 }) => {
 
 
@@ -18,9 +19,9 @@ export const FineTaskItem = ({finetask, currency
     return `${hr}:${min} ${ampm} - ${day}/${month}/${year}`;
 
   }
-  console.log(finetask.title, finetask.amount)
+  // console.log(finetask)
   return (
-    <div className="flex flex-col transition-all border-white bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-4">
+    <div onClick={() => onSelect(finetask.id)} className="flex flex-col transition-all border-white bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2">
       <div className="bg-blue-200 rounded-t-xl p-4 h-full w-full">
         <h1 className="text-blue-800 font-bold font-sans text-4xl text-ellipsis">
           {finetask.title}

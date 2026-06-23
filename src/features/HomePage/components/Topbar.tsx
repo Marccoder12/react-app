@@ -4,12 +4,43 @@ import { Link } from "react-router-dom";
 const date = new Date();
 export const Topbar = ({ name }: { name: string }) => {
   const { signOut } = useAuth();
+  let date = new Date();
+
+  const handleDayName = () => {
+    let name = "";
+    switch (date.getDay()) {
+      case 0:
+        name = "Sunday";
+        break;
+      case 1:
+        name = "Monday";
+        break;
+      case 2:
+        name = "Tuesday";
+        break;
+      case 3:
+        name = "Wednesday";
+        break;
+      case 4:
+        name = "Thursday";
+        break;
+      case 5:
+        name = "Friday";
+        break;
+      case 6:
+        name = "Saturday";
+        break;
+      }
+      console.log(date.getDay())
+      console.log(name);
+      return name;
+  }
   return (
     <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
       <div className="flex items-center justify-between p-0.5">
         <div>
           <span className="text-sm font-bold block">Good Morning {name}</span>
-          <span className="text-xs block text-stone-500">Today is: </span>
+          <span className="text-xs block text-stone-500">Today is: <span className="text-md font-semibold text-stone-500">{handleDayName()}</span></span>
         </div>
         <Link
           to={"/home/notification"}
