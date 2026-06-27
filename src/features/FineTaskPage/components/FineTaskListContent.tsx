@@ -10,10 +10,16 @@ import { GiOpenBook, GiOpenChest, GiOpenFolder } from "react-icons/gi";
 import { useTheme } from "../../../context/ThemeContext";
 import { supabase } from "../../../lib/supabase/client";
 import { useAuth } from "../../../context/AuthContext";
+import { useFineTask } from "../context/FineTaskContext";
 
-export const FineTaskListContent = ({finetasks, loading, onParentModal, onFinetaskSelected, clearEditTask}: {finetasks: FineTask[], loading : boolean, onParentModal: () => void, onFinetaskSelected:(id : string) => void, clearEditTask: () => void }) => {
+export const FineTaskListContent = ({onParentModal}: {onParentModal: () => void}) => {
 
-    const { user } = useAuth();
+  const { fetchTasks, fineTasks, loading , handleSelectedFineTask} = useFineTask();
+  const [isLoading, setIsLoading] = useState(loading);
+
+  //   useEffect(() => {
+  //     fetchTasks();
+  // },[]);
 //   const fetchTasks = async () => {
 //     loading =true;
 //     try{
@@ -34,21 +40,19 @@ export const FineTaskListContent = ({finetasks, loading, onParentModal, onFineta
 //   }
 //   }
 
-  useEffect(() => {
-
-  },[finetasks, loading, onParentModal, onFinetaskSelected, clearEditTask]);
 
     if(loading){
-        return <div>Loading Tasks</div>
+        return <div>Loading Tasks...</div>
     }
-    //   if(finetasks.length === 0){
-    // return (
-    //   <div>No Tasks Yet</div>
-    // )
-//   }
-    return (
-              <div className={`bg-white shadow border-2 p-6 border-stone-100 h-full w-full  relative onClick={clearEditTask} `} >
-                {finetasks.length === 0 ?
+
+        // if(fineTasks.length === 0){
+        // return (
+        //     <div></div>
+        //   )
+        //     }
+          return (
+            <div className={`bg-white shadow border-2 p-6 border-stone-100 h-full w-full  relative onClick={clearEditTask} `} onClick={() => {handleSelectedFineTask(null)}}>
+                {fineTasks.length === 0 ?
                 <div className = "relative w-full h-full">
                 <div className="relative flex w-full h-full items-center justify-center"><BiWallet className="w-1/3 h-auto text-stone-200"/>
                 <div className="absolute bottom-0 right-15">
@@ -59,15 +63,14 @@ export const FineTaskListContent = ({finetasks, loading, onParentModal, onFineta
                 :
                 <div className="relative w-full h-full">
                 <ul className="absolute w-14/15 pr-2 h-11/12 overflow-hidden overflow-y-scroll space-y-4">
-                  {finetasks.map((finetask) => {
+                  {fineTasks.map((fineTask) => {
                       return(
         
         
                           <FineTaskItem
-                        key={finetask.id}
+                          key={fineTask.id}
                       currency={`\u20A6`}
-                      finetask={finetask}
-                       onSelect={onFinetaskSelected}
+                      finetask={fineTask}
                     />
                   )
                 })}
@@ -80,5 +83,5 @@ export const FineTaskListContent = ({finetasks, loading, onParentModal, onFineta
                     }
               </div>
         
-    );
+      );
 }

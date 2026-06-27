@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { FineTask } from "../../Utils/types";
+import { useFineTask } from "./context/FineTaskContext";
 
-export const FineTaskItem = ({finetask, currency, onSelect
+export const FineTaskItem = ({finetask, currency
 }: {
   finetask: FineTask;
   currency: "N" | "$" | string;
-  onSelect: (id : string) => void;
 }) => {
+
+  const { selectedTask, handleSelectedFineTask } = useFineTask();
 
 
   const setDueDate = (date: Date | string): string => {
@@ -44,9 +46,16 @@ export const FineTaskItem = ({finetask, currency, onSelect
   useEffect(() => {
     
   },[setDueDate])
+
+    useEffect(() => {
+      console.log("EditContent: Selected Task updated", selectedTask?.title);
+    },[selectedTask]);
+  
   // console.log(finetask)
   return (
-    <div onClick={() => onSelect(finetask.id)} className="flex flex-col transition-all border-white bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2">
+    <div onClick={(e) => {
+      e.stopPropagation();
+      handleSelectedFineTask(finetask)}} className={`flex flex-col transition-all bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2 ${selectedTask?.id === finetask.id ? "border-blue-400 border-3" : ""}`}>
       <div className="bg-blue-200 rounded-t-xl p-4 h-full w-full">
         <h1 className="text-blue-800 font-bold font-sans text-4xl text-ellipsis">
           {finetask.title}

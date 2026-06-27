@@ -4,6 +4,7 @@ import { supabase } from "../../../lib/supabase/client";
 import { GiBank } from "react-icons/gi";
 import { useToast } from "../../../context/ToastContext";
 import { FineTask } from "../../../Utils/types";
+import { useFineTask } from "../context/FineTaskContext";
 
 type Bank = {
   code: string;
@@ -125,6 +126,8 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
   //verifying task creation states
   const [creating, setCreating] = useState(false);
 
+  const { fetchTasks } = useFineTask();
+
 
 
   const handleChange = (index: number, value: string) => {
@@ -232,15 +235,6 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
     }
   }, [fineTask.acc_num, fineTask.bank_code, stage]);
 
-  //   useEffect(() => {
-  //   getBanks().then(setBanks);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (open) {
-  //     setStage(undefined);
-  //   }
-  // });
 
   const clearAllData = () => {
     setInputPin(["", "", "", ""]);
@@ -274,7 +268,6 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       return;
     }
   };
-
   const enterSecurityStage = async (e: FormEvent) => {
     e.preventDefault();
     if (
@@ -288,26 +281,6 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
     }
     setStage("last");
   };
-
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault();
-
-  //   if (stage == "first") {
-  //     if (fineTask.amount != null && fineTask.amount <= 0)
-  //       addToast("error", `${fineTask.amount}-Set a valid price for this task`);
-
-  //     if (
-  //       fineTask.acc_num != null &&
-  //       (fineTask.acc_num.toString().length < 10 ||
-  //         fineTask.acc_num.toString().length > 10)
-  //     ) {
-  //       setStage("second");
-  //       addToast("error", "not a valid account number");
-  //       return;
-  //     }
-  //   }
-  // };
-
 
   const handleCreateTask = async () => {
     const enteredPin = inputPin.join("");
@@ -340,7 +313,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
               return;
             }
             console.log("success", data)
-        onTaskCreated();
+            fetchTasks();
           clearAllData();
           onClose();
 

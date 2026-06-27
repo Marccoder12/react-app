@@ -12,6 +12,7 @@ import { FineTask } from "../../Utils/types";
 import { FineTaskListContent } from "./components/FineTaskListContent";
 import { FineTaskEditContent } from "./components/FineTaskEditContent";
 import { useTheme } from "../../context/ThemeContext";
+import { FineTaskContextProvider, useFineTask } from "./context/FineTaskContext";
 
 export const FineTaskContent = () => {
 
@@ -23,38 +24,10 @@ export const FineTaskContent = () => {
   const [loadingTasks, setLoadingTasks] = useState(true);
   const [open, setOpen] = useState(false);
   const {user } = useAuth();
-  useEffect(() => {
-    if(!user?.id) return;
 
-    fetchTasks();
-  },[user, FineTaskListContent]);
 
-  const fetchTasks = async () => {
-    setLoadingTasks(true);
-    try{
-      // fetch tasks from backend and update state
-    const { data, error } = await supabase
-    .from("fine_tasks")
-    .select("*")
-    .eq("user_id", user?.id);
+  // const { handleFineTaskCreated } = useFineTask();
 
-    if (error) {
-      console.error("Error fetching tasks:", error);
-      return;
-    }
-    
-    setFineTasks(data ?? []);
-  }finally{
-    setLoadingTasks(false);
-  }
-  }
-
-  const handleTaskCreated = () => {
-    setOpen(false);
-
-    // refresh task list
-    fetchTasks();
-  }
   const handleFinetaskSelected = (id: string) => {
     // setSelectedFinetaskId(id);    
     // console.log("Selected ID: " + id);
@@ -72,20 +45,25 @@ export const FineTaskContent = () => {
   }, [selectedFinetask])
 
   return (
+    <FineTaskContextProvider>
+
     <main className={`grid grid-cols-5 gap-4 h-full w-full p-4`}>
       {/* List Section */}
       <div className={`col-span-3 `}>
-      <FineTaskListContent  onFinetaskSelected={handleFinetaskSelected} finetasks={finetasks} 
-      loading={loadingTasks} onParentModal={() => setOpen(true)}
-       clearEditTask={() => setSelectedFinetask(null)}/>
+      <FineTaskListContent  
+       onParentModal={() => setOpen(true)}/>
       </div>
       {/* Edit Section */}
       <div className={`col-span-2 `}>
-      <FineTaskEditContent fineTaskData={selectedFinetask} tasksEmpty={(finetasks.length === 0)} onEditChanged={fetchTasks}/>
+      <FineTaskEditContent fineTaskData={selectedFinetask} tasksEmpty={(finetasks.length === 0)}/>
       </div>
-          <Modal open={open} onClose={() => setOpen(false)} onTaskCreated={handleTaskCreated} />
+          <Modal open={open} onClose={() => setOpen(false)} onTaskCreated={() => {
+            setOpen(false);
+            // handleFineTaskCreated();
+          }} />
           
     </main>
+    </FineTaskContextProvider>
   );
 }
 
