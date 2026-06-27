@@ -23,11 +23,14 @@ import { FineTaskItem } from "./features/FineTaskPage/FinetaskItem";
 import { Subscription } from "./pages/Subscription";
 import { ToastProvider } from "./context/ToastContext";
 import { NotificationContent } from "./features/NotificationsPage/NotificationContent";
+import { ThemeContext, ThemeProvider } from "./context/ThemeContext";
 // Your main App
 function App() {
   return (
     <div className="App h-full bg-gray-50">
       <BrowserRouter>
+      <ThemeProvider>
+
         <ToastProvider>
           <AuthProvider>
             <Routes>
@@ -58,6 +61,7 @@ function App() {
             </Routes>
           </AuthProvider>
         </ToastProvider>
+      </ThemeProvider>
       </BrowserRouter>
     </div>
   );

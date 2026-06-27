@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { FineTask } from "../../Utils/types";
 
 export const FineTaskItem = ({finetask, currency, onSelect
@@ -8,6 +9,26 @@ export const FineTaskItem = ({finetask, currency, onSelect
 }) => {
 
 
+  const setDueDate = (date: Date | string): string => {
+    const d = new Date(date);
+    const now = new Date();
+
+    const dueDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    if(dueDay.getTime() < today.getTime()){
+      return "Passed";
+    }
+    else if(dueDay.getTime() === today.getTime()){
+      return d.toLocaleDateString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }); // HH:MM
+    }else{
+
+      return d.toLocaleDateString("en-GB"); // dd/mm/yyyy
+    }
+}
   const formatDate = () => {
     const date = new Date(finetask?.due_date);
     const day = date.getDate().toString().padStart(2, "0");
@@ -19,6 +40,10 @@ export const FineTaskItem = ({finetask, currency, onSelect
     return `${hr}:${min} ${ampm} - ${day}/${month}/${year}`;
 
   }
+
+  useEffect(() => {
+    
+  },[setDueDate])
   // console.log(finetask)
   return (
     <div onClick={() => onSelect(finetask.id)} className="flex flex-col transition-all border-white bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2">
@@ -34,7 +59,7 @@ export const FineTaskItem = ({finetask, currency, onSelect
         </div>
         <div className=" w-[50%] pr-4 pt-2 relative justify-end overflow-hidden text-ellipsis border-l-2 border-blue-300">
           <span className="absolute text-stone-400 text-2xl font-semibold">
-            {formatDate()}
+            {setDueDate(finetask.due_date ?? "")}
           </span>
         </div>
       </div>

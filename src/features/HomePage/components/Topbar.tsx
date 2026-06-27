@@ -1,11 +1,26 @@
 import { FiBell } from "react-icons/fi";
 import { useAuth } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../../context/ThemeContext";
+import { Toggle } from "../../../components/SmallComps";
 const date = new Date();
 export const Topbar = ({ name }: { name: string }) => {
   const { signOut } = useAuth();
+  // const { darkMode, useChangeTheme } = useTheme();
   let date = new Date();
-
+const handleTimeName = () => {
+  let hr = date.getHours();
+  if(hr < 12){
+  return "Good Morning";
+}else if(hr < 17){
+  return "Good Afternoon";
+}else if(hr < 21){
+  return "Good Evening";
+}else{
+  return "Good Night";
+}
+return "";
+}
   const handleDayName = () => {
     let name = "";
     switch (date.getDay()) {
@@ -39,7 +54,7 @@ export const Topbar = ({ name }: { name: string }) => {
     <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
       <div className="flex items-center justify-between p-0.5">
         <div>
-          <span className="text-sm font-bold block">Good Morning {name}</span>
+          <span className="text-sm font-bold block">{handleTimeName()} {name}</span>
           <span className="text-xs block text-stone-500">Today is: <span className="text-md font-semibold text-stone-500">{handleDayName()}</span></span>
         </div>
         <Link
@@ -55,6 +70,7 @@ export const Topbar = ({ name }: { name: string }) => {
           <FiLogOut />
           <span>Sign Out</span>
         </button> */}
+        {/* <Toggle name="DarkMode" onToggle={useChangeTheme} /> */}
       </div>
     </div>
   );

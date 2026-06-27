@@ -1,9 +1,10 @@
 import SideNav from "../features/HomePage/components/SideNav/SideNav";
 import MainPage from "../features/HomePage/components/MainPage";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Home() {
   return (
-    <main className="h-full grid gap-4 p-4 grid-cols-[220px_1fr]">
+    <main className={`h-full grid gap-4 p-4 grid-cols-[220px_1fr]`}>
       {/* <p>Hello World</p> */}
       <SideNav />
       <MainPage />
