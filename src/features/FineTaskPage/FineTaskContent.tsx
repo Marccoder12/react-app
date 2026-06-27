@@ -23,12 +23,7 @@ export const FineTaskContent = () => {
   const [loadingTasks, setLoadingTasks] = useState(true);
   const [open, setOpen] = useState(false);
   const {user } = useAuth();
-  useEffect(() => {
-    if(!user?.id) return;
-
-    fetchTasks();
-  },[user, FineTaskListContent]);
-
+  
   const fetchTasks = async () => {
     setLoadingTasks(true);
     try{
