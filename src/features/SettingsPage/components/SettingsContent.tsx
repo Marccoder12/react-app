@@ -26,10 +26,10 @@ export const SettingsContent = () => {
         }
         // If pin is null/empty -> no Pin set yet
         const isSet =
-          data?.hashed_pin != null ||
-          (data?.hashed_pin != "" && data?.hashed_pin.length > 0);
+        data?.hashed_pin != null ||
+        (data?.hashed_pin != "" && data?.hashed_pin.length > 0);
         setHasPin(isSet);
-
+        
         //You can now enable/disable UI elements based on hasPin
       } catch (error: any) {
         console.error("Failed to check PIN status:", error);
@@ -43,17 +43,40 @@ export const SettingsContent = () => {
     checkPinStatus();
   }, []); //Runs once when entering the settings panel
 
+  const handleGenerateOtp = async () => {
+    console.log("send otp");
+    // const addToast = useToast();
+    try{
+      const { data, error } = await supabase.functions.invoke(
+        "otp-management", {
+          body: {
+            action: "gen_otp",
+            otp: null,
+          }
+        }
+      );
+      
+      addToast("success", "Check Email to finish verification");
+      if (error)
+        throw new Error("error.message");
+
+      // if(data?.)
+    
+    }catch(err){
+      console.log("Error: ", err);
+    }
+  }
   const handleSignOut = async () => {
     await signOut();
     if (!user) addToast("success", "User log Out successfully!");
   };
 
 
-  if (loading) return <div className="p-6">Loading security settings...</div>;
+  if (loading) return <div className="p-6 text-white">Loading security settings...</div>;
   if (hasPin == null) return <div className="p-6">Error no Network...</div>;
   return (
     <div className="flex flex-col gap-4 p-4">
-      SettingsContent
+      <span className="font-bold text-blue-100 text-3xl">Settings</span>
       <div
         className={` w-8/12 p-4 rounded-xl ${!hasPin ? "bg-blue-200 border-2 border-blue-400" : "bg-yellow-200 border-2 border-yellow-400"}`}
       >
@@ -77,30 +100,37 @@ export const SettingsContent = () => {
             setPinModalIndex(1);
           }}
         >
+          <span className="text-xl font-semibold text-blue-600">
           Set Pin
+          </span>
         </button>
       ) : (
         <button
           className="bg-blue-300 hover:cursor-pointer hover:transition-colors hover:bg-blue-400 p-3 rounded w-30"
           onClick={() => {
             setPinModalIndex(2);
+            handleGenerateOtp();
           }}
         >
+          <span className="text-xl font-semibold text-blue-600">
           Change Pin
+          </span>
         </button>
       )}
       <button
         className="bg-blue-300 p-3 rounded w-30 hover:cursor-pointer hover:transition-colors hover:bg-blue-400"
         onClick={handleSignOut}
       >
+          <span className="text-xl font-semibold text-blue-600">
         Sign Out
+        </span>
       </button>
       {pinModelIndex === 0 && null}
       {pinModelIndex === 1 && (
         <SetPinModal open={true} onClose={() => setPinModalIndex(0)} />
       )}
       {pinModelIndex === 2 && (
-        <VerifyOTPModal open={true} onClose={() => setPinModalIndex(0)} />
+        <VerifyOTPModal open={true} onClose={() => setPinModalIndex(0)} onVerified={() => setPinModalIndex(3)} />
       )}
       {pinModelIndex === 3 && (
         <ChangePinModal open={true} onClose={() => setPinModalIndex(0)} />

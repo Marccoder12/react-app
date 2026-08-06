@@ -50,20 +50,29 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 };
 
 const ToastContainer = ({ toasts }: { toasts: Toast[] }) => (
-  <div className="fixed bottom-4 right-4 z-50 flex-col gap-2">
-    {toasts.map((toast) => (
-      <div
-        key={toast.id}
-        className={`bg-[#d6d6d68a] px-6 py-4 rounded-2xl shdoaw-lg flex items-center gap-3 max-w-xs font-bold
-                ${toast.type === "success" ? " border-5 text-green-400 border-green-500" : ""}
+  <>
+    <style>{`
+      @keyframes slideInRight {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+    `}</style>
+    <div className="fixed bottom-4 right-4 z-50 flex-col gap-2">
+      {toasts.map((toast) => (
+        <div
+          key={toast.id}
+          className={`bg-[#ececec1e] mt-5 px-6 py-4 rounded-2xl shadow-lg flex items-center gap-3 max-w-xs font-bold 
+                ${toast.type === "success" ? "shadow shadow-[#242424] border-5 text-green-400 border-green-500" : ""}
                 ${toast.type === "error" ? " border-5 text-red-400 border-red-500" : ""}
                 ${toast.type === "info" ? " border-5 text-blue-400 border-blue-500" : ""}
                 ${toast.type === "warning" ? "border-5 text-yellow-400 border-yellow-500" : ""}`}
-      >
-        <span>{toast.message}</span>
-      </div>
-    ))}
-  </div>
+          style={{ animation: "slideInRight 0.3s ease-out forwards", willChange: "transform" }}
+        >
+          <span className="text-shadow-md text-shadow-[#242424]">{toast.message}</span>
+        </div>
+      ))}
+    </div>
+  </>
 );
 
 export const useToast = () => {

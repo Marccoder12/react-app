@@ -338,11 +338,11 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-all" />
 
       {/* modal box */}
-      <div className="relative bg-white rounded-xl z-10 w-96 shadow-lg transition-all">
+      <div className="relative bg-[#272727] rounded-md border-2 border-gray-400 z-10 w-96 shadow-lg transition-all">
         {/* header */}
         <div className="flex items-center justify-between relative p-6 border-b border-gray-200">
           <div className=" relative pl-30">
-            <h2 className="text-lg font-semibold">Create Task</h2>
+            <h2 className="text-lg font-semibold text-[#ccc]">Create Task</h2>
           </div>
           <div className="justify-self-end">
             <button
@@ -366,7 +366,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             }`}
           ></div>
           <div
-            className={`absolute bg-white left-40 -top-2 
+            className={`absolute bg-gray-800 left-40 -top-2 
               ${
                 stage === "second"
                   ? "text-blue-400"
@@ -378,7 +378,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             <FiCheckCircle></FiCheckCircle>
           </div>
           <div
-            className={`absolute bg-white left-90 -top-2 
+            className={`absolute bg-gray-800 left-90 -top-2 
               ${stage === "last" ? "text-blue-400" : "text-stone-300"}`}
           >
             <FiCheckCircle></FiCheckCircle>
@@ -393,7 +393,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
         >
           {/* Add your form content here */}
           <div>
-            <span className="font-bold text-2xl">Title</span>
+            <span className="font-bold text-white text-2xl">Title</span>
             <input
               type="text"
               placeholder="Task Title..."
@@ -401,14 +401,14 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 setfineTask((prev) => ({ ...prev, title: e.target.value }))
               }
               value={fineTask.title}
-              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
             />
           </div>
           <div className ="relative">
-            <span className="font-bold text-2xl">Price</span>
+            <span className="font-bold text-white text-2xl">Price</span>
             <input
               type="number"
-              inputMode="numeric"
+              // inputMode="numeric"
               placeholder="Task Price..."
               onChange={(e) =>
                 setfineTask((prev) => ({
@@ -418,7 +418,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 }))
               }
               value={fineTask.amount ?? ""}
-              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white"
             />
             {/* Price Charge */}
             {/* <div className="absolute right-8 -top-1 rounded-t-lg bg-yellow-200 px-3 py-1">
@@ -426,7 +426,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             </div> */}
           </div>
           <div>
-            <span className="font-bold text-2xl">Due Date</span>
+            <span className="font-bold text-white text-2xl">Due Date</span>
             <input
               type="datetime-local"
               placeholder="Task due date..."
@@ -438,7 +438,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 }))
               }
               value={fineTask.due_date ?? ""}
-              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white"
             />
           </div>
 
@@ -461,7 +461,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
           ${stage === "second" ? "block" : "hidden"}`}
           >
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Bank
               </label>
               <BankSelector
@@ -479,7 +479,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             </div>
             {/* Account Number + live validation */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-white mb-2">
                 Account Number (10 digit)
               </label>
               {/* <span className="font-bold text-2xl">Account Number</span> */}
@@ -496,7 +496,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                     acc_num: val === "" ? null : val,
                   }));
                 }}
-                className="w-full rounded-xl border overflow-hidden border-gray-300 px-4 py-3 text-lg tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none"
+                className="w-full rounded-xl border overflow-hidden border-gray-300 px-4 py-3 text-lg tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none  text-white"
                 placeholder="00000000"
               />
               {isValidating && (
@@ -547,7 +547,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
           onSubmit={handleCreateTask}
         >
           <div className="gap-y-2">
-            <span className="font-bold text-gray-800 text-2xl">
+            <span className="font-bold text-white text-2xl">
               Verify Task
             </span>
             <div
@@ -565,7 +565,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     ref={(el) => (inputRefs.current[index] = el)}
-                    className="w-14  h-14 text-center text-indigo-500 text-lg font-bold bg-transparent border border-blue-800 rounded-lg outline-none focus:border-indigo-500/40 focus:bg-indigo-500/5  transition-all"
+                    className="w-14  h-14 text-center text-indigo-500 text-lg font-bold bg-transparent border border-blue-800 rounded-lg outline-none focus:border-indigo-500/40 focus:bg-indigo-500/5  transition-all  text-white"
                   />
                 ))}
               </div>

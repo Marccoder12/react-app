@@ -11,7 +11,7 @@ export const FineTaskEditContent = ({ tasksEmpty , fineTaskData}: {tasksEmpty: b
     }
   },[]);
   return (
-              <div className="bg-white shadow border-2 border-stone-100 h-full flex-1">
+              <div className="bg-[#272727] shadow  h-full flex-1">
                 <EditContent/>
               </div>
     );

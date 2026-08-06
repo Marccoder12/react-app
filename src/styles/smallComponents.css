@@ -61,7 +61,7 @@
 .normal-textField .textField-title {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
-    color: rgb(49, 49, 49);
+    color: rgb(187, 187, 187);
     font-family: monospace Arial;
     font-size: 1.2rem;
 }
@@ -70,10 +70,10 @@
     display: block;
     height: 100%;
     width: 100%;
-    color: rgb(65, 65, 65);
+    color: rgb(235, 235, 235);
     border-radius: 5px;
-    background-color: #f5f5f5;
-    border: 2px solid #e0e0e0;
+    background-color: #ffffff00;
+    border: 2px solid #46455a;
     padding-left: 5px;
     outline: none;
     font-size: 1.5rem;

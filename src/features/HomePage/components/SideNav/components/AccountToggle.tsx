@@ -32,7 +32,7 @@ export default function AccountToggle() {
   const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=4f46e5&color=fff&bold=true&size=128`;
   return (
     <div className="border-b mb-4 mt-2 pb-4 border-stone-300">
-      <button className="flex p-0.5 hover:bg-stone-200 rounded transition-colors relative gap-2 w-full items-center">
+      <button className="flex p-0.5 hover:bg-[#383838ab] rounded transition-colors relative gap-2 w-full items-center">
         <img
           src={avatarUrl}
           alt={displayName || "User"}
@@ -40,8 +40,8 @@ export default function AccountToggle() {
           referrerPolicy="no-referrer"
         />
         <div className="text-start">
-          <span className="text-sm font-semibold block">{displayName}</span>
-          <span className="text-xs block text-stone-500">{user?.email}</span>
+          <span className="text-sm font-semibold block text-gray-200">{displayName}</span>
+          <span className="text-xs block text-gray-400">{user?.email}</span>
         </div>
 
         <CgChevronDown className="absolute right-2 top-1/2 translate-y-[calc(-50%+4px)] text-xs" />

@@ -130,11 +130,12 @@ export const SetPinModal = ({ open, onClose }: Props) => {
     </div>
   );
 };
-export const VerifyOTPModal = ({ open, onClose }: Props) => {
+export const VerifyOTPModal = ({ open, onClose, onVerified }: Props & { onVerified: () => void;}) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [verified, setVerified] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const addToast = useToast();
 
   const handleDigitChange = (index: number, value: string) => {
     if (/^\d*$/.test(value) && value.length <= 1) {
@@ -158,13 +159,37 @@ export const VerifyOTPModal = ({ open, onClose }: Props) => {
     }
   };
 
-  const handleVerifyOtp = () => {
+  const handleVerifyOtp = async () => {
     const enteredOtp = otp.join("");
-    if (enteredOtp.length === 6) {
-      // show success message
-    } else {
-      // show error message
-    }
+    try{
+
+      if (enteredOtp.length === 6) {
+        // show success message
+        const { data, error } = await supabase.functions.invoke(
+          "otp-management",
+          {
+            body: {
+              action: "ver_otp",
+              otp: enteredOtp,
+            },
+          },
+        );
+
+        if (error) throw new Error("error.message");
+
+        if(!data.success){
+          addToast("error", data.messae);
+        }
+        else{
+           onVerified();
+        }
+        } else {
+          // show error message
+          addToast("error", "Please enter a 4-digit pin.");
+        }
+      }catch(err){
+
+      }
   };
 
   const handleClose = () => {

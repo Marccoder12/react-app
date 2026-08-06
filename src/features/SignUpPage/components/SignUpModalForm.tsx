@@ -131,8 +131,8 @@ export function SignUpModalForm() {
         {/* <button type="submit" className="signUpBtn"> Register</button> */}
         <Button btype="submit" title="Sign Up" />
       </form>
-      <p>
-        Already have an Account?<Link to="/auth/login">Log In</Link>
+      <p className="text-gray-50">
+        Already have an Account?<Link to="/auth/login" className="underline">Log In</Link>
       </p>
     </main>
   );

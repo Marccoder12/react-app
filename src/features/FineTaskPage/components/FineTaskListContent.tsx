@@ -40,9 +40,20 @@ export const FineTaskListContent = ({onParentModal}: {onParentModal: () => void}
 //   }
 //   }
 
+const ft : FineTask = {
+  amount: 1000,
+  bank_code: "1323",
+  title: "food",
+  acc_num: "2948382929",
+  bank_name: "Unt",
+  due_date: "dpo2i30913i01-2",
+  resolved_account_name: "sckmcd",
+  id: "dweicwoicwev"
+}
+
 
     if(loading){
-        return <div>Loading Tasks...</div>
+        return <div className="bg-[#272727] h-full w-full">Loading Tasks...</div>
     }
 
         // if(fineTasks.length === 0){
@@ -51,10 +62,16 @@ export const FineTaskListContent = ({onParentModal}: {onParentModal: () => void}
         //   )
         //     }
           return (
-            <div className={`bg-white shadow border-2 p-6 border-stone-100 h-full w-full  relative onClick={clearEditTask} `} onClick={() => {handleSelectedFineTask(null)}}>
+            <div className={`bg-[#272727] shadow p-6 h-full w-full  relative onClick={clearEditTask} `} onClick={() => {handleSelectedFineTask(null)}}>
                 {fineTasks.length === 0 ?
                 <div className = "relative w-full h-full">
-                <div className="relative flex w-full h-full items-center justify-center"><BiWallet className="w-1/3 h-auto text-stone-200"/>
+                  <ul className="absolute w-14/15 pr-2 h-11/12 overflow-hidden overflow-y-scroll space-y-4">
+                {/* <FineTaskItem
+                currency={`\u20A6`}
+                finetask={ft}
+                /> */}
+                </ul>
+                <div className="relative flex w-full h-full items-center justify-center"><BiWallet className="w-1/3 h-auto text-[#444444]"/>
                 <div className="absolute bottom-0 right-15">
                 <CreateFineTask openModal={onParentModal} />
                 </div>

@@ -55,19 +55,19 @@ export const FineTaskItem = ({finetask, currency
   return (
     <div onClick={(e) => {
       e.stopPropagation();
-      handleSelectedFineTask(finetask)}} className={`flex flex-col transition-all bg-white items-center justify-between bg-white-50 w-full h-32 rounded-2xl shadow shadow-gray-300 hover:bg-stone-50 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2 ${selectedTask?.id === finetask.id ? "border-blue-400 border-3" : ""}`}>
-      <div className="bg-blue-200 rounded-t-xl p-4 h-full w-full">
-        <h1 className="text-blue-800 font-bold font-sans text-4xl text-ellipsis">
+      handleSelectedFineTask(finetask)}} className={`flex flex-col transition-all bg-[#727272] items-center justify-between bg-white-50 w-full h-32 rounded-2xl hover:bg-stone-300 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2 ${selectedTask?.id === finetask.id ? "border-blue-400 border-3" : ""}`}>
+      <div className="bg-[#3a4899] hover:bg-[#4f62ca] rounded-t-xl p-4 h-full w-full">
+        <h1 className="text-[#dfdfdf] font-bold font-sans text-4xl text-ellipsis">
           {finetask.title}
         </h1>
       </div>
-      <div className="h-full w-full border-t-4 border-blue-300 rounded-b-2xl flex justify-between">
-        <div className="pl-4 w-[50%] border-r-2 border-blue-300">
-          <span className="text-3xl font-bold">{currency}</span>
-          <span className=" text-3xl font-semibold">{(finetask.amount?.toString() ?? 0).toString()}</span>
+      <div className="h-[calc(100%-4rem)] relative w-full rounded-b-2xl flex justify-between">
+        <div className="pl-4 w-[50%] bg-[#616161] hover:bg-[#797979] rounded-bl-2xl">
+          <span className="text-3xl relative text-[#424242] font-bold">{currency}</span>
+          <span className=" text-3xl font-semibold text-[#a5a5a5]">{(finetask.amount?.toString() ?? 0).toString()}</span>
         </div>
-        <div className=" w-[50%] pr-4 pt-2 relative justify-end overflow-hidden text-ellipsis border-l-2 border-blue-300">
-          <span className="absolute text-stone-400 text-2xl font-semibold">
+        <div className=" w-[50%] pr-3 pl-2 pt-2 relative justify-end overflow-hidden text-ellipsis">
+          <span className="text-stone-400 text-2xl font-semibold">
             {setDueDate(finetask.due_date ?? "")}
           </span>
         </div>

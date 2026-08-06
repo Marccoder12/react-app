@@ -4,6 +4,7 @@ import "../Styles/LogInModal.css";
 import { supabase } from "../../../lib/supabase/client";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import icon from "../../../assets/logo.png"
 
 export function LogInModalForm() {
   const navigate = useNavigate();
@@ -54,7 +55,9 @@ export function LogInModalForm() {
 
   return (
     <main className="logInModalForm">
-      <h2 className="modalTitle"> Log In</h2>
+      <h2 className="modalTitle"> 
+        <img src={icon} alt="Logo" className="h-10 w-auto inline pr-2 font-outline-4" />
+        Log In</h2>
       <form className="fields" onSubmit={handleSubmit}>
         <div className="emailnPass">
           <InputField
@@ -74,8 +77,8 @@ export function LogInModalForm() {
         </div>
         <Button btype="submit" title="Log In" />
       </form>
-      <p>
-        Don't have an Account?<Link to="/auth/register">Sign Up</Link>
+      <p className="text-gray-50">
+        Don't have an Account?<Link to="/auth/register" className="underline">Sign Up</Link>
       </p>
     </main>
   );

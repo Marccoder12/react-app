@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export const ViewOpt = () => {
   return (
-    <div className="w-full border-b border-blue-300">
+    <div className="w-full ">
       <div className="w-96 flex items-center justify-around">
         <ViewRoute
           path="/home/dashboard/finetasks"
@@ -23,8 +23,8 @@ const ViewRoute = ({ path, title }: { path: string; title: string }) => {
       }) => `items-center justify-between p-2 w-50 text-center font-mono font-bold font-stretch-90%
         ${
           isActive
-            ? "bg-white border-b-2 border-blue-400 text-stone-950 hover:bg-blue-200"
-            : "hover:bg-blue-200 hover:transition-colors rounded-t bg-transparent text-stone-600 shadow-none"
+            ? " border-b-4 border-blue-400 text-gray-200 hover:bg-[#272727]"
+            : "hover:bg-[#3b3b3b8a] hover:transition-colors rounded-t bg-transparent text-gray-400 shadow-none"
         }`}
     >
       <div>

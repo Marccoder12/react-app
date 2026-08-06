@@ -7,7 +7,7 @@ export default function SideNav() {
   return (
     <div>
       <div
-        className={`sticky top-4 h-[calc(100vh-32px-48px)]`}
+        className={`sticky top-4 h-[calc(100vh-32px-48px)] pt-4 bg-[#1f1f1f]`}
         //     className="overflow-y-scroll
         //  sticky top-4 h-[calc(100vh-32px-48px)]"
       >

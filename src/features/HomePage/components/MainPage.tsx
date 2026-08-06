@@ -8,7 +8,7 @@ export default function MainPage() {
   const { user, loading } = useAuth();
 
   return (
-    <div className="bg-white rounded-lg pb-4 shadow">
+    <div className="bg-[#1f1f1f] rounded-lg pb-4 shadow">
       <Topbar
         name={
           user?.user_metadata?.first_name.charAt(0).toUpperCase() +

@@ -8,12 +8,12 @@ export const Plan = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-bold">Basic</p>
+          <p className="font-bold text-gray-200">Basic</p>
           <p className="text-stone-500">Pay as you Go</p>
         </div>
         <Link
           to={"/subscription"}
-          className="px-2 py-1.5 font-medium bg-blue-400 hover:bg-blue-300 transition-colors rounded"
+          className="px-2 py-1.5 font-medium text-blue-700 bg-blue-400 hover:bg-blue-300 transition-colors rounded"
         >
           Upgrade
         </Link>

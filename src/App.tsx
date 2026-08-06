@@ -2,7 +2,7 @@
 // import "./components/Task";
 import { ReactNode } from "react";
 import "./mainStyle.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 // import Home from "./pages/Home";
 
@@ -27,7 +27,7 @@ import { ThemeContext, ThemeProvider } from "./context/ThemeContext";
 // Your main App
 function App() {
   return (
-    <div className="App h-full bg-gray-50">
+    <div className="App h-full bg-[#181818]">
       <BrowserRouter>
       <ThemeProvider>
 
@@ -41,8 +41,8 @@ function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route element={<Home />} path="/home">
                   <Route path="dashboard" element={<DashBoardContent />}>
+                    <Route index element={<Navigate to="finetasks" replace/>}/>
                     <Route
-                      index={true}
                       path="finetasks"
                       element={<FineTaskContent />}
                     ></Route>
