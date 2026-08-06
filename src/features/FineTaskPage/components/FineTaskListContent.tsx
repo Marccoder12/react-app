@@ -12,6 +12,8 @@ import { supabase } from "../../../lib/supabase/client";
 import { useAuth } from "../../../context/AuthContext";
 import { useFineTask } from "../context/FineTaskContext";
 import WalletLoader from "./WalletLoader";
+import "../../../mainStyle.css"
+
 
 export const FineTaskListContent = ({onParentModal}: {onParentModal: () => void}) => {
 
@@ -68,12 +70,6 @@ const ft : FineTask = {
             <div className={`bg-[#272727] shadow p-6 h-full w-full  relative onClick={clearEditTask} `} onClick={() => {handleSelectedFineTask(null)}}>
                 {fineTasks.length === 0 ?
                 <div className = "relative w-full h-full">
-                  <ul className="absolute w-14/15 pr-2 h-11/12 overflow-hidden overflow-y-scroll space-y-4">
-                {/* <FineTaskItem
-                currency={`\u20A6`}
-                finetask={ft}
-                /> */}
-                </ul>
                 <div className="relative flex w-full h-full items-center justify-center"><BiWallet className="w-1/3 h-auto text-[#444444]"/>
                 <div className="absolute bottom-0 right-15">
                 <CreateFineTask openModal={onParentModal} />
@@ -82,7 +78,7 @@ const ft : FineTask = {
                     </div>
                 :
                 <div className="relative w-full h-full">
-                <ul className="absolute w-14/15 pr-2 h-11/12 overflow-hidden overflow-y-scroll space-y-4">
+                <ul className=" .no-scrollbar absolute w-14/15 pr-2 h-11/12 overflow-hidden space-y-4">
                   {fineTasks.map((fineTask) => {
                       return(
         

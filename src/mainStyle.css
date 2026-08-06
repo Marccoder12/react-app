@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 @layer base {
     .font-outline-2 {
         -webkit-text-stroke: 2px rgb(255, 255, 255);
@@ -29,4 +31,16 @@ body #root {
 .App {
     height: 100%;
     width: 100%;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
 }
