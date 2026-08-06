@@ -1,0 +1,36 @@
+/* WalletLoader.css */
+.wallet-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.wallet-body {
+    width: 50%;
+    height: 25%;
+    background: #8b5e3c;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.wallet-flap {
+    width: 80%;
+    height: 40%;
+    background: #a9744f;
+    position: absolute;
+    top: 0;
+    transform-origin: top;
+    animation: openClose 1s infinite alternate ease-in-out;
+}
+
+@keyframes openClose {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(60deg);
+    }
+}

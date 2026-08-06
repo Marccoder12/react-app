@@ -11,6 +11,7 @@ import { useTheme } from "../../../context/ThemeContext";
 import { supabase } from "../../../lib/supabase/client";
 import { useAuth } from "../../../context/AuthContext";
 import { useFineTask } from "../context/FineTaskContext";
+import WalletLoader from "./WalletLoader";
 
 export const FineTaskListContent = ({onParentModal}: {onParentModal: () => void}) => {
 
@@ -53,7 +54,9 @@ const ft : FineTask = {
 
 
     if(loading){
-        return <div className="bg-[#272727] h-full w-full">Loading Tasks...</div>
+      // {isLoading ? <BookLoader /> : <TaskList tasks={tasks} />}
+
+        return <div className="bg-[#272727] h-full w-full"><WalletLoader/></div>
     }
 
         // if(fineTasks.length === 0){

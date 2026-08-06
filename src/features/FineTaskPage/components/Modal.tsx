@@ -338,7 +338,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-all" />
 
       {/* modal box */}
-      <div className="relative bg-[#272727] rounded-md border-2 border-gray-400 z-10 w-96 shadow-lg transition-all">
+      <div className="relative bg-[#272727] rounded-md border-4 border-[#444] z-10 w-96 shadow-lg transition-all">
         {/* header */}
         <div className="flex items-center justify-between relative p-6 border-b border-gray-200">
           <div className=" relative pl-30">
@@ -500,7 +500,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 placeholder="00000000"
               />
               {isValidating && (
-                <div className="mt-3 text blue-600 text-sm flex items-center gap-2">
+                <div className="mt-3 text blue-600 text-sm flex items-center gap-2 text-[#b3b3b3]">
                   <span className="animate-spin">
                     <FiCheckCircle />
                   </span>
@@ -583,7 +583,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
             /> */}
             </div>
           </div>
-          <div className="flex justify-center items-center border-t-2 border-stone-200">
+          <div className="flex justify-center items-center border-t-2 pt-4 border-stone-200">
 
             <button disabled={creating} type="submit" onClick={handleCreateTask} className="justify-self bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 pl-10 pr-10 rounded hover:cursor-pointer items-center text-white font-bold active:transisition-colors active:bg-blue-500">
               {creating ? "Creating..." : "Create Task"}

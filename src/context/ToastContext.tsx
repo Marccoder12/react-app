@@ -66,7 +66,7 @@ const ToastContainer = ({ toasts }: { toasts: Toast[] }) => (
                 ${toast.type === "error" ? " border-5 text-red-400 border-red-500" : ""}
                 ${toast.type === "info" ? " border-5 text-blue-400 border-blue-500" : ""}
                 ${toast.type === "warning" ? "border-5 text-yellow-400 border-yellow-500" : ""}`}
-          style={{ animation: "slideInRight 0.2s ease-out forwards", willChange: "transform" }}
+          style={{ animation: "slideInRight 0.1s ease-out forwards", willChange: "transform" }}
         >
           <span className="text-shadow-md text-shadow-[#242424]">{toast.message}</span>
         </div>
