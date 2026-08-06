@@ -55,7 +55,7 @@ return "";
       <div className="flex items-center justify-between p-0.5">
         <div>
           <span className="text-sm font-bold block text-gray-200">{handleTimeName()} {name}</span>
-          <span className="text-xs block text-stone-500">Today is: <span className="text-md font-semibold text-stone-500">{handleDayName()}</span></span>
+          <span className="text-[16px] block text-stone-500">Today is: <span className="text-md font-semibold text-[#d8d8d8]">{handleDayName()}</span></span>
         </div>
         <Link
           to={"/home/notification"}

@@ -44,8 +44,8 @@ export default function AccountToggle() {
           <span className="text-xs block text-gray-400">{user?.email}</span>
         </div>
 
-        <CgChevronDown className="absolute right-2 top-1/2 translate-y-[calc(-50%+4px)] text-xs" />
-        <CgChevronUp className="absolute right-2 top-1/2 translate-y-[calc(-50%-4px)] text-xs" />
+        <CgChevronDown className="absolute right-2 top-1/2 translate-y-[calc(-50%+4px)] text-xs text-[#adadad]" />
+        <CgChevronUp className="absolute right-2 top-1/2 translate-y-[calc(-50%-4px)] text-xs text-[#adadad]" />
       </button>
 
       {/* <div className="hoverText">
