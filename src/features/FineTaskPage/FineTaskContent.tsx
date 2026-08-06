@@ -24,9 +24,21 @@ export const FineTaskContent = () => {
   const [loadingTasks, setLoadingTasks] = useState(true);
   const [open, setOpen] = useState(false);
   const {user } = useAuth();
+<<<<<<< HEAD
 
 
   // const { handleFineTaskCreated } = useFineTask();
+=======
+  
+  const fetchTasks = async () => {
+    setLoadingTasks(true);
+    try{
+      // fetch tasks from backend and update state
+    const { data, error } = await supabase
+    .from("fine_tasks")
+    .select("*")
+    .eq("user_id", user?.id);
+>>>>>>> 15eec5cfedfa2a00a15687844bf9a38769807fb6
 
   const handleFinetaskSelected = (id: string) => {
     // setSelectedFinetaskId(id);    
