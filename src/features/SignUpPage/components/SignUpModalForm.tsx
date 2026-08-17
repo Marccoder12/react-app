@@ -83,56 +83,59 @@ export function SignUpModalForm() {
     }
   };
   return (
-    <main className="signUpModalForm">
-      <h2 className="modalTitle"> Sign Up</h2>
+    <main className='signUpModalForm'>
+      <h2 className='modalTitle'> Sign Up</h2>
       {/* Keep the form tag - it gives you e.preventDefault() and Enter key support */}
 
-      <form className="fields" onSubmit={handleSubmit}>
-        <div className="name-row">
+      <form className='fields' onSubmit={handleSubmit}>
+        <div className='name-row'>
           <InputField
-            title="First Name"
-            placeholderText=""
+            title='First Name'
+            placeholderText=''
             onChange={setFirstName}
             value={firstName}
           />
           <InputField
-            title="Last Name"
-            placeholderText=""
+            title='Last Name'
+            placeholderText=''
             onChange={setLastName}
             value={lastName}
           />
         </div>
 
-        <div className="emailnPass">
+        <div className='emailnPass'>
           <InputField
-            title="Email Address"
-            placeholderText=""
+            title='Email Address'
+            placeholderText=''
             onChange={setEmail}
             value={email}
-            type="email"
+            type='email'
           />
           <InputField
-            title="Password"
-            placeholderText=""
+            title='Password'
+            placeholderText=''
             onChange={setPassword}
             value={password}
-            type="password"
+            type='password'
           />
           <InputField
-            title="Confirm Password"
-            placeholderText=""
+            title='Confirm Password'
+            placeholderText=''
             onChange={setConfirmPassword}
             value={confirmPassword}
-            type="password"
+            type='password'
           />
         </div>
         {/* onToggle={setRememberMe} //<- pass the setter directly */}
         {/* Button stays inside form -> type ="submit" works naturally */}
         {/* <button type="submit" className="signUpBtn"> Register</button> */}
-        <Button btype="submit" title="Sign Up" />
+        <Button btype='submit' title='Sign Up' />
       </form>
-      <p className="text-gray-50">
-        Already have an Account?<Link to="/auth/login" className="underline">Log In</Link>
+      <p className='text-gray-50'>
+        Already have an Account?
+        <Link to='/auth/login' className='underline'>
+          Log In
+        </Link>
       </p>
     </main>
   );

@@ -81,8 +81,6 @@ const ft : FineTask = {
                 <ul className=" .no-scrollbar absolute w-14/15 pr-2 h-11/12 overflow-hidden space-y-4">
                   {fineTasks.map((fineTask) => {
                       return(
-        
-        
                           <FineTaskItem
                           key={fineTask.id}
                       currency={`\u20A6`}
