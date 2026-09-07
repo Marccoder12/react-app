@@ -8,19 +8,19 @@ export const Topbar = ({ name }: { name: string }) => {
   const { signOut } = useAuth();
   // const { darkMode, useChangeTheme } = useTheme();
   let date = new Date();
-const handleTimeName = () => {
-  let hr = date.getHours();
-  if(hr < 12){
-  return "Good Morning";
-}else if(hr < 17){
-  return "Good Afternoon";
-}else if(hr < 21){
-  return "Good Evening";
-}else{
-  return "Good Night";
-}
-return "";
-}
+  const handleTimeName = () => {
+    let hr = date.getHours();
+    if (hr < 12) {
+      return "Good Morning";
+    } else if (hr < 17) {
+      return "Good Afternoon";
+    } else if (hr < 21) {
+      return "Good Evening";
+    } else {
+      return "Good Night";
+    }
+    return "";
+  };
   const handleDayName = () => {
     let name = "";
     switch (date.getDay()) {
@@ -45,23 +45,30 @@ return "";
       case 6:
         name = "Saturday";
         break;
-      }
-      console.log(date.getDay())
-      console.log(name);
-      return name;
-  }
+    }
+    console.log(date.getDay());
+    console.log(name);
+    return name;
+  };
   return (
-    <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
-      <div className="flex items-center justify-between p-0.5">
+    <div className='border-b px-4 mt-2 pb-4 border-stone-200'>
+      <div className='flex items-center justify-between p-0.5'>
         <div>
-          <span className="text-sm font-bold block text-gray-200">{handleTimeName()} {name}</span>
-          <span className="text-[16px] block text-stone-500">Today is: <span className="text-md font-semibold text-[#d8d8d8]">{handleDayName()}</span></span>
+          <span className='text-sm pb-2 font-bold block text-gray-200'>
+            {handleTimeName()} {name}
+          </span>
+          <span className='text-[16px] block text-stone-500'>
+            Today is:{" "}
+            <span className='text-md font-semibold text-[#d8d8d8]'>
+              {handleDayName()}
+            </span>
+          </span>
         </div>
         <Link
           to={"/home/notification"}
-          className="flex text-sm items-center gap-2 shadow transition-colors hover:bg-violet-100 hover:text-blue-700 px-3 py-1.5 rounded"
+          className='flex text-sm items-center gap-2 shadow transition-colors hover:bg-[#383838a8] hover:text-blue-700 px-3 py-1.5 rounded'
         >
-          <FiBell className="text-lg text-gray-300" />
+          <FiBell className='text-lg text-gray-300' />
         </Link>
         {/* <button
           onClick={signOut}

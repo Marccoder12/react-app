@@ -1,10 +1,15 @@
 import { useState, FormEvent } from "react";
-import { Toggle, InputField, Button, InputFieldWithToggle } from "../../../components/SmallComps";
+import {
+  Toggle,
+  InputField,
+  Button,
+  InputFieldWithToggle,
+} from "../../../components/SmallComps";
 import "../Styles/LogInModal.css";
 import { supabase } from "../../../lib/supabase/client";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import icon from "../../../assets/logo.png"
+import icon from "../../../assets/logo.png";
 
 export function LogInModalForm() {
   const navigate = useNavigate();
@@ -54,31 +59,40 @@ export function LogInModalForm() {
   };
 
   return (
-    <main className="logInModalForm">
-      <h2 className="modalTitle"> 
-        <img src={icon} alt="Logo" className="h-10 w-auto inline pr-2 font-outline-4" />
-        Log In</h2>
-      <form className="fields" onSubmit={handleSubmit}>
-        <div className="emailnPass">
+    <main className='logInModalForm'>
+      <h2 className='modalTitle'>
+        <img
+          src={icon}
+          alt='Logo'
+          className='h-10 w-auto inline pr-2 font-outline-4 icon'
+        />
+        Log In
+      </h2>
+      <form className='fields' onSubmit={handleSubmit}>
+        <div className='emailnPass'>
           <InputField
-            title="Email Address"
-            placeholderText=""
+            title='Email Address'
+            placeholderText=''
             onChange={setEmail}
             value={email}
-            type="email"
+            type='email'
           />
           <InputField
-            title="Password"
-            placeholderText=""
+            title='Password'
+            placeholderText=''
             onChange={setPassword}
             value={password}
-            type="password"/>
+            type='password'
+          />
           {/* <Toggle name="Remember Me?" onToggle={setRememberMe} /> */}
         </div>
-        <Button btype="submit" title="Log In" />
+        <Button btype='submit' title='Log In' />
       </form>
-      <p className="text-gray-50">
-        Don't have an Account?<Link to="/auth/register" className="underline">Sign Up</Link>
+      <p className='text-gray-50 text-[1rem]'>
+        Don't have an Account?
+        <Link to='/auth/register' className='underline'>
+          Sign Up
+        </Link>
       </p>
     </main>
   );

@@ -53,6 +53,9 @@ export function SignUpModalForm() {
         },
       });
 
+      // create customer in flutter wave
+      
+
       // useEffect(()=>{
       //   supabase.auth.onAuthStateChange()
       // })

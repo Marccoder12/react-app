@@ -3,10 +3,9 @@ import { FineTaskContextProvider } from "../../FineTaskPage/context/FineTaskCont
 
 export const MainContent = () => {
   return (
-    <main className="h-28/30 w-auto">
+    <main className='h-full w-auto'>
       <FineTaskContextProvider>
-
-      <Outlet />
+        <Outlet />
       </FineTaskContextProvider>
     </main>
   );

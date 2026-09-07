@@ -2,6 +2,7 @@
 // import "./components/Task";
 import { ReactNode } from "react";
 import "./mainStyle.css";
+   import "nigerian-bank-icons/index.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 // import Home from "./pages/Home";
@@ -27,41 +28,49 @@ import { ThemeContext, ThemeProvider } from "./context/ThemeContext";
 // Your main App
 function App() {
   return (
-    <div className="App h-full bg-[#181818]">
+    <div className='App h-full bg-[#181818]'>
       <BrowserRouter>
-      <ThemeProvider>
-
-        <ToastProvider>
-          <AuthProvider>
-            <Routes>
-              <Route element={<DemoContent />} path="/"/>
-              <Route element={<SignUp />} path="/auth/register"></Route>
-              <Route element={<Login />} path="/auth/login" />
-              <Route element={<Welcome />} path="/welcome" />
-              <Route element={<ProtectedRoutes />}>
-                <Route element={<Home />} path="/home">
-                  <Route path="dashboard" element={<DashBoardContent />}>
-                    <Route index element={<Navigate to="finetasks" replace/>}/>
+        <ThemeProvider>
+          <ToastProvider>
+            <AuthProvider>
+              <Routes>
+                <Route element={<DemoContent />} path='/' />
+                <Route element={<SignUp />} path='/auth/register'></Route>
+                <Route element={<Login />} path='/auth/login' />
+                <Route element={<Welcome />} path='/welcome' />
+                <Route element={<ProtectedRoutes />}>
+                  <Route element={<Home />} path='/home'>
+                    <Route path='dashboard' element={<DashBoardContent />}>
+                      <Route
+                        index
+                        element={<Navigate to='finetasks' replace />}
+                      />
+                      <Route
+                        path='finetasks'
+                        element={<FineTaskContent />}
+                      ></Route>
+                      <Route path='tasks' element={<TaskContent />}></Route>
+                    </Route>
+                    <Route path='stats' element={<StatsContent />}></Route>
                     <Route
-                      path="finetasks"
-                      element={<FineTaskContent />}
+                      path='notification'
+                      element={<NotificationContent />}
                     ></Route>
-                    <Route path="tasks" element={<TaskContent />}></Route>
+                    <Route
+                      path='settings'
+                      element={<SettingsContent />}
+                    ></Route>
+                    <Route path='user' element={<UserPageContent />}></Route>
                   </Route>
-                  <Route path="stats" element={<StatsContent />}></Route>
                   <Route
-                    path="notification"
-                    element={<NotificationContent />}
+                    path='/subscription'
+                    element={<Subscription />}
                   ></Route>
-                  <Route path="settings" element={<SettingsContent />}></Route>
-                  <Route path="user" element={<UserPageContent />}></Route>
                 </Route>
-                <Route path="/subscription" element={<Subscription />}></Route>
-              </Route>
-            </Routes>
-          </AuthProvider>
-        </ToastProvider>
-      </ThemeProvider>
+              </Routes>
+            </AuthProvider>
+          </ToastProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );

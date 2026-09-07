@@ -2,13 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 
 export const ViewOpt = () => {
   return (
-    <div className="w-full ">
-      <div className="w-96 flex items-center justify-around">
+    <div className='w-full '>
+      <div className='w-96 flex items-center justify-around'>
         <ViewRoute
-          path="/home/dashboard/finetasks"
-          title="FineTasks"
+          path='/home/dashboard/finetasks'
+          title='FineTasks'
         ></ViewRoute>
-        <ViewRoute path="/home/dashboard/tasks" title="Tasks"></ViewRoute>
+        <ViewRoute path='/home/dashboard/tasks' title='Tasks'></ViewRoute>
       </div>
     </div>
   );
@@ -28,7 +28,7 @@ const ViewRoute = ({ path, title }: { path: string; title: string }) => {
         }`}
     >
       <div>
-        <span className="align-middle text-center">{title}</span>
+        <span className='align-middle text-center'>{title}</span>
       </div>
     </NavLink>
   );

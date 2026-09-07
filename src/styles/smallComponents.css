@@ -101,20 +101,20 @@
 }
 
 .base-btn {
+    transition: 0.2s;
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
     width: 200px;
     height: 50px;
     border: none;
-    background-color: #5b8de9;
+    background-color: #50A2FF;
     border-radius: 12px;
 }
 
 .base-btn:hover {
     color: #ffffff;
     font-size: 16px;
-    border: 5px solid #5380d4;
     transition: 0.2s;
-    background-color: #6c9cf5;
+    background-color: #385791;
 }
