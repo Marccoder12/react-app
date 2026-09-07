@@ -107,14 +107,14 @@ export const SettingsContent = () => {
         <div>
           <h2
             className={`text-xl font-bold
-          ${!hasPin ? "text-[#387BED]" : "text-[#EFAC39]"}`}
+          ${hasPin ? "text-[#387BED]" : "text-[#EFAC39]"}`}
           >
             PIN Protection
           </h2>
           <p
-            className={`text-sm  font-semibold ${!hasPin ? "text-[#5591DB]" : "text-[#E8C96A]"}`}
+            className={`text-sm  font-semibold ${hasPin ? "text-[#5591DB]" : "text-[#E8C96A]"}`}
           >
-            {!hasPin
+            {hasPin
               ? "Your Pin is set. You can change it later(requires verification)"
               : "No Pin set yet. Set one for added security"}
           </p>

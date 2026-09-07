@@ -12,7 +12,7 @@ export const EditContent = () => {
   const { selectedTask, handleFineTaskDeleted, handleFineTaskUpdated } =
     useFineTask();
   useEffect(() => {
-    console.log("EditContent: Selected Task updated", selectedTask?.title);
+    // console.log("EditContent: Selected Task updated", selectedTask?.title);
     setEditFineTask(selectedTask);
   }, [selectedTask]);
 
