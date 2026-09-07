@@ -102,7 +102,7 @@ export const SettingsContent = () => {
     <div className='flex flex-col gap-4 p-4'>
       <span className='font-bold text-blue-100 text-3xl'>Settings</span>
       <section
-        className={` h-37.5 w-full flex items-center justify-between p-6 pr-11 rounded-3xl ${!hasPin ? "bg-[#0E1D38] border border-blue-400" : "bg-[#3A2A0E] border-2 border-[#EFAC39]"}`}
+        className={` h-37.5 w-full flex items-center justify-between p-6 pr-11 rounded-3xl ${hasPin ? "bg-[#0E1D38] border border-blue-400" : "bg-[#3A2A0E] border-2 border-[#EFAC39]"}`}
       >
         <div>
           <h2
@@ -122,17 +122,6 @@ export const SettingsContent = () => {
         {/* Conditional Buttons */}
         {hasPin ? (
           <button
-            className='bg-[#50A2FF] hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30'
-            onClick={() => {
-              setPinModalIndex(1);
-            }}
-          >
-            <span className='text-xl font-semibold text-[#112574]'>
-              Set Pin
-            </span>
-          </button>
-        ) : (
-          <button
             className='bg-[#388ae7] hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-32'
             onClick={() => {
               setPinModalIndex(2);
@@ -141,6 +130,17 @@ export const SettingsContent = () => {
           >
             <span className='text-xl font-bold text-[#112574] truncate'>
               Change Pin
+            </span>
+          </button>
+        ) : (
+          <button
+            className='bg-[#50A2FF] hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30'
+            onClick={() => {
+              setPinModalIndex(1);
+            }}
+          >
+            <span className='text-xl font-semibold text-[#112574]'>
+              Set Pin
             </span>
           </button>
         )}
