@@ -79,7 +79,7 @@ export const FineTaskListContent = ({
   // }
   return (
     <div
-      className={`bg-[#272727] shadow p-6 h-full w-full  relative onClick={clearEditTask} `}
+      className={`bg-[#141414]  shadow p-6 h-full w-full  relative onClick={clearEditTask} `}
       onClick={() => {
         handleSelectedFineTask(null);
       }}
@@ -99,7 +99,7 @@ export const FineTaskListContent = ({
         </div>
       ) : (
         <div className='relative w-full h-full'>
-          <ul className=' .no-scrollbar absolute top-12 w-14/15 pr-2 h-11/12 overflow-hidden space-y-4'>
+          <ul className=' .no-scrollbar absolute top-2 w-full pr-2 h-11/12 overflow-y-hidden space-y-4'>
             {fineTasks.map((fineTask) => {
               return (
                 <FineTaskItem

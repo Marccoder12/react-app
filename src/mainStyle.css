@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+    --muted: #d8d8d888;
+}
+
 
 
 @layer base {

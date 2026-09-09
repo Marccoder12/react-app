@@ -7,10 +7,42 @@ import { supabase } from "../../../lib/supabase/client";
 import { BsQuestion } from "react-icons/bs";
 import { BiPencil } from "react-icons/bi";
 import { useFineTask } from "../context/FineTaskContext";
+import { FTLoader } from "./FTLoader";
+import { PiPencil } from "react-icons/pi";
 
 export const EditContent = () => {
-  const { selectedTask, handleFineTaskDeleted, handleFineTaskUpdated } =
-    useFineTask();
+  type BankIcon = {
+    code: number;
+    logo: string;
+  };
+  const [logos, setLogos] = useState<BankIcon[]>([]);
+  useEffect(() => {
+    getLogos();
+  }, []); //Runs once when entering the settings panel
+
+  // or with async/await
+  async function getLogos() {
+    try {
+      const response = await fetch(
+        "https://supermx1.github.io/nigerian-banks-api/data.json",
+      );
+      if (!response.ok) throw new Error("Network response was not ok");
+      const raw: Array<{ code: string; logo: string }> = await response.json();
+      const data: BankIcon[] = raw.map((bank) => ({
+        ...bank,
+        code: parseInt(bank.code, 10),
+      }));
+      setLogos(data);
+    } catch (error) {
+      console.error("Failed to fetch bank logos:", error);
+    }
+  }
+  const {
+    selectedTask,
+    loading,
+    handleFineTaskDeleted,
+    handleFineTaskUpdated,
+  } = useFineTask();
   useEffect(() => {
     // console.log("EditContent: Selected Task updated", selectedTask?.title);
     setEditFineTask(selectedTask);
@@ -30,7 +62,11 @@ export const EditContent = () => {
   const [editFineTask, setEditFineTask] = useState<FineTask | null>(
     selectedTask ?? null,
   );
+  if (loading) {
+    return <>{/* <FTLoader /> */}</>;
+  }
 
+  console.log(JSON.stringify(selectedTask));
   if (!selectedTask) {
     return (
       <div className='h-full w-full flex flex-col items-center justify-center'>
@@ -46,10 +82,9 @@ export const EditContent = () => {
     return (
       <div className='h-full w-full flex flex-col p-4'>
         <div className='relative flex justify-end'>
-          {/* <button className="absolute bg-red-50 p-3 rounded hover:cursor-pointer transition-colors hover:transition-colors hover:bg-red-300" >
-            
-            <FiTrash/>
-          </button> */}
+          <button className='absolute  text-[#ccc] p-3 rounded hover:cursor-pointer transition-colors hover:transition-colors hover:bg-[#ffffff33]'>
+            <PiPencil />
+          </button>
           <div className='w-full flex justify-center align-center'>
             <span className='text-3xl p-2 font-bold text-center text-[#cecece]'>
               {selectedTask?.title}
@@ -59,7 +94,7 @@ export const EditContent = () => {
         <div className='w-full h-full flex flex-col'>
           {/* Contents */}
 
-          <div className='w-full  flex flex-col p-4  bg-[#303030] h-12/15 grow-2'>
+          <div className='w-full  flex flex-col p-4  bg-[#1a1a1a] h-12/15 grow-2'>
             <div className='flex flex-col gap-y-10'>
               <div>
                 <span className='text-xl text-[#cecece]'>Title</span>
@@ -74,7 +109,7 @@ export const EditContent = () => {
                       );
                     }}
                     type='text'
-                    className='relative w-full border-2 rounded-md border-stone-300 p-1 text-[#cecece]'
+                    className='relative w-full border pt-4 pb-4 pl-3 rounded-md border-[#dddddd28] text-[#cecece]'
                   />
                   <button
                     className='right-2 absolute p-1.5 text-[#cecece] transition-colors'
@@ -105,7 +140,7 @@ export const EditContent = () => {
                     }}
                     type='text'
                     inputMode='numeric'
-                    className='relative w-full border-2 rounded-md border-stone-300 p-1 text-[#cecece]'
+                    className='relative w-full border pt-4 pb-4 pl-3 rounded-md border-[#dddddd28] text-[#cecece]'
                   />
                   <button
                     className='right-2 absolute p-1.5 text-[#cecece] transition-colors'
@@ -136,7 +171,9 @@ export const EditContent = () => {
                       );
                     }}
                     type='datetime-local'
-                    className=' pr-10 relative w-full border-2 rounded-md border-stone-300 p-1 text-[#cecece]'
+                    className='relative w-full border pt-4 pb-4 pl-3 pr-[7%] rounded-md border-[#dddddd28] text-[#cecece] [&::-webkit-calendar-picker-indicator]:invert
+    [&::-webkit-calendar-picker-indicator]:opacity-70
+    [&::-webkit-calendar-picker-indicator]:hover:opacity-100"'
                   />
                   <button
                     className='right-2 absolute p-1.5 transition-colors text-[#cecece]'
@@ -152,15 +189,27 @@ export const EditContent = () => {
                 {/* <span className="font_semibold text-black" >Old Value: {formatDate()}</span> */}
                 {/* <p>{fineTask?.due_date}</p> */}
               </div>
-              <div className='bg-stone-100 p-2 rounded-lg'>
-                <span className='text-xl border-b-2 border-stone-200'>
-                  United Bank of Africa
+              <div className='bg-[#d8d8d804] p-2 rounded-sm border border-[#d8d8d815]'>
+                <span className='text-xl border-b text-[#ccc] border-stone-200'>
+                  {/* United Bank of Africa */}
+                  <img
+                    className='h-14 w-[1fr] bg-cover'
+                    src={
+                      logos.length > 0
+                        ? "https://supermx1.github.io/nigerian-banks-api/" +
+                          logos.find((bank) => bank.code === Number("011"))
+                            ?.logo
+                        : ""
+                    }
+                  />
                 </span>
-                <div className='flex flex-col relative w-full'>
-                  <span className='text-xl font-serif'>
-                    MARK NGUH EBONKIMUYAM
+                <div className='flex flex-col relative w-[1fr] overflow-hidden flex-wrap'>
+                  <span className='text-xl text-[#cccccc7c] font-mono pl-5'>
+                    {selectedTask?.acc_num}
                   </span>
-                  <span className='text-xl font-mono'>8068589545</span>
+                  <span className='text-xl text-[#cccccce0] font-sans-serif'>
+                    {/* {selectedTask?.id} */}
+                  </span>
                 </div>
               </div>
             </div>

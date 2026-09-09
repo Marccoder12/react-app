@@ -149,12 +149,12 @@ export const SettingsContent = () => {
         <div className='details bg-[#1f1f1f] w-full p-4 rounded-xl border border-[#3A3A3A] gap-2 flex  items-center justify-between'>
           <div className='flex items-center gap-2 h-full'>
             {/* card linked status */}
-            <PiCircleFill className='text-[#3eeb2e]' />
+            <PiCircleFill className='text-[#5e5e5e]' />
             <h2 className='text-2xl font-bold text-blue-100 h-full'>
               No Card Linked
             </h2>
-            {/* <span className='nbi nbi-xx'></span> */}
-            <img
+            {/* Show bank Icon When Linked*/}
+            {/* <img
               className='h-16 w-16'
               src={
                 logos.length > 0
@@ -162,7 +162,7 @@ export const SettingsContent = () => {
                     logos.find((bank) => bank.code === Number("033"))?.logo
                   : ""
               }
-            />
+            /> */}
           </div>
           <button className='bg-[#50A2FF] text-xl font-bold hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30 text-[#112574]'>
             Link Card

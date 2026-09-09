@@ -46,8 +46,6 @@ export const Topbar = ({ name }: { name: string }) => {
         name = "Saturday";
         break;
     }
-    console.log(date.getDay());
-    console.log(name);
     return name;
   };
   return (
