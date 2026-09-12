@@ -326,7 +326,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       <div className='absolute inset-0 bg-black/40 backdrop-blur-sm transition-all' />
 
       {/* modal box */}
-      <div className='relative bg-[#272727] rounded-md border-2 border-[#444] z-10 w-96 shadow-lg transition-all'>
+      <div className='relative bg-[#141414] border-2 border-[#444] z-10 w-96 shadow-lg transition-all'>
         {/* header */}
         <div className='flex items-center justify-between relative p-6 border-b border-gray-200'>
           <div className=' relative pl-30'>
@@ -389,7 +389,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 setfineTask((prev) => ({ ...prev, title: e.target.value }))
               }
               value={fineTask.title}
-              className='border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white'
+              className='border w-full border-[#2c2c2c] rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white'
             />
           </div>
           <div className='relative'>
@@ -406,7 +406,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 }))
               }
               value={fineTask.amount ?? ""}
-              className='border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white'
+              className='border w-full border-[#2c2c2c] rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white'
             />
             {/* Price Charge */}
             {/* <div className="absolute right-8 -top-1 rounded-t-lg bg-yellow-200 px-3 py-1">
@@ -425,7 +425,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 }))
               }
               value={fineTask.due_date ?? ""}
-              className='border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white [&::-webkit-calendar-picker-indicator]:invert
+              className='border w-full border-[#2c2c2c] rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500  text-white [&::-webkit-calendar-picker-indicator]:invert
     [&::-webkit-calendar-picker-indicator]:opacity-70
     [&::-webkit-calendar-picker-indicator]:hover:opacity-100'
             />
@@ -485,7 +485,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                     acc_num: val === "" ? null : val,
                   }));
                 }}
-                className='w-full rounded-xl border overflow-hidden border-gray-300 px-4 py-3 text-lg tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none  text-white'
+                className='w-full rounded-xl border overflow-hidden border-[#2c2c2c] px-4 py-3 text-lg tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none  text-white'
                 placeholder='00000000'
               />
               {isValidating && (
@@ -511,7 +511,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                 </div>
               )}
             </div>
-            <div className='border-t-2 border-stone-200'></div>
+            <div className='border-t-2 border-[#2c2c2c]'></div>
             <div className='flex justify-around'>
               <button
                 className='bg-blue-400 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-8 pr-8 rounded hover:cursor-pointer  text-white font-bold active:transisition-colors active:bg-blue-500'

@@ -164,8 +164,8 @@ export const SettingsContent = () => {
               }
             /> */}
           </div>
-          <button className='bg-[#50A2FF] text-xl font-bold hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30 text-[#112574]'>
-            Link Card
+          <button className='bg-[#50A2FF] text-md text-nowrap font-bold hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30 text-[#112574]'>
+            Link Account
           </button>
         </div>
       </section>

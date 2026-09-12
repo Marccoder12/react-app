@@ -67,7 +67,7 @@ export const FineTaskListContent = ({
     // {isLoading ? <BookLoader /> : <TaskList tasks={tasks} />}
 
     return (
-      <div className='bg-[#272727] h-full w-full'>
+      <div className='bg-[#141414] h-full w-full'>
         {/* <WalletLoader /> */}
         <FTLoader />
       </div>
@@ -89,7 +89,7 @@ export const FineTaskListContent = ({
         <h2 className='text-[#e2e2e2] text-[2rem] font-bold inline'>100000</h2>
       </div> */}
       {fineTasks.length === 0 ? (
-        <div className='relative w-full h-full'>
+        <div className='relative w-full h-full open:transition-all '>
           <div className='relative flex w-full h-full items-center justify-center'>
             <BiWallet className='w-1/3 h-auto text-[#444444]' />
             <div className='absolute bottom-0 right-15'>
