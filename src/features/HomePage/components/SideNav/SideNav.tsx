@@ -3,9 +3,8 @@ import AccountToggle from "./components/AccountToggle";
 import { Plan } from "./components/Plan";
 import { RouteSelect } from "./components/RouteSelect";
 export default function SideNav() {
-  
   return (
-    <div>
+    <div className='not-md:hidden'>
       <div
         className={`sticky top-4 h-[calc(100vh-32px-48px)] pt-4 bg-[#1f1f1f]`}
         //     className="overflow-y-scroll

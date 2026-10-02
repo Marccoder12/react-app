@@ -1,13 +1,17 @@
 import SideNav from "../features/HomePage/components/SideNav/SideNav";
 import MainPage from "../features/HomePage/components/MainPage";
 import { useTheme } from "../context/ThemeContext";
+import BottomNav from "../features/HomePage/components/BottomNav/BottomNav";
 
 export default function Home() {
   return (
-    <main className={`h-full grid gap-4 pb-4 pt-4 pr-4 grid-cols-[220px_1fr]`}>
+    <main
+      className={`h-full grid gap-4 pb-4 pt-4 pr-4 not-md:p-0 md:grid-cols-[220px_1fr] not-md:grid-rows-[1fr_80px]`}
+    >
       {/* <p>Hello World</p> */}
       <SideNav />
       <MainPage />
+      <BottomNav />
     </main>
   );
 }

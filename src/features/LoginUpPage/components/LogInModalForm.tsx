@@ -59,41 +59,52 @@ export function LogInModalForm() {
   };
 
   return (
-    <main className='logInModalForm'>
-      <h2 className='modalTitle'>
+    <div className='h-full w-full flex items-center justify-center'>
+      <h2 className=' flex  items-end title fixed top-0 left-0 m-5 text-[#2450b1] font-bold text-4xl'>
         <img
           src={icon}
           alt='Logo'
-          className='h-10 w-auto inline pr-2 font-outline-4 icon'
+          className='w-auto inline pr-2 font-outline-4 icon'
         />
-        Log In
+        Fine
+        <span className='text-[#4975d4] font-semibold'>task</span>
       </h2>
-      <form className='fields' onSubmit={handleSubmit}>
-        <div className='emailnPass'>
-          <InputField
-            title='Email Address'
-            placeholderText=''
-            onChange={setEmail}
-            value={email}
-            type='email'
+      <main className='logInModalForm'>
+        <h2 className='modalTitle'>
+          <img
+            src={icon}
+            alt='Logo'
+            className='h-10 w-auto inline pr-2 font-outline-4 icon'
           />
-          <InputField
-            title='Password'
-            placeholderText=''
-            onChange={setPassword}
-            value={password}
-            type='password'
-          />
-          {/* <Toggle name="Remember Me?" onToggle={setRememberMe} /> */}
-        </div>
-        <Button btype='submit' title='Log In' />
-      </form>
-      <p className='text-gray-50 text-[1rem]'>
-        Don't have an Account?
-        <Link to='/auth/register' className='underline'>
-          Sign Up
-        </Link>
-      </p>
-    </main>
+          Log In
+        </h2>
+        <form className='fields' onSubmit={handleSubmit}>
+          <div className='emailnPass'>
+            <InputField
+              title='Email Address'
+              placeholderText=''
+              onChange={setEmail}
+              value={email}
+              type='email'
+            />
+            <InputField
+              title='Password'
+              placeholderText=''
+              onChange={setPassword}
+              value={password}
+              type='password'
+            />
+            {/* <Toggle name="Remember Me?" onToggle={setRememberMe} /> */}
+          </div>
+          <Button btype='submit' title='Log In' />
+        </form>
+        <p className='text-gray-50 text-[1rem] mt-12'>
+          Don't have an Account?
+          <Link to='/auth/register' className='underline'>
+            Sign Up
+          </Link>
+        </p>
+      </main>
+    </div>
   );
 }

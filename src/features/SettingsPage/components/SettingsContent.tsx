@@ -5,6 +5,7 @@ import { supabase } from "../../../lib/supabase/client";
 import { useToast } from "../../../context/ToastContext";
 import { ChangePinModal, SetPinModal, VerifyOTPModal } from "./PinModal";
 import { PiCircleFill } from "react-icons/pi";
+import { handleLinkCard } from "../Services/LinkCardService";
 export const SettingsContent = () => {
   type BankIcon = {
     code: number;
@@ -164,8 +165,14 @@ export const SettingsContent = () => {
               }
             /> */}
           </div>
-          <button className='bg-[#50A2FF] text-md text-nowrap font-bold hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30 text-[#112574]'>
-            Link Account
+          <button
+            onClick={() => {
+              handleLinkCard();
+            }}
+            type='submit'
+            className='bg-[#50A2FF] text-md text-nowrap font-bold hover:cursor-pointer hover:transition-colors hover:bg-[#6aadfa] p-3 rounded-2xl w-30 text-[#112574]'
+          >
+            Link Card
           </button>
         </div>
       </section>

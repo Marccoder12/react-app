@@ -1,6 +1,6 @@
 import { FiBell } from "react-icons/fi";
 import { useAuth } from "../../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import { useTheme } from "../../../context/ThemeContext";
 import { Toggle } from "../../../components/SmallComps";
 const date = new Date();
@@ -21,6 +21,11 @@ export const Topbar = ({ name }: { name: string }) => {
     }
     return "";
   };
+  const handleCurrentTimeFormated = () => {
+    let formatStr = date.getHours() >= 12 ? "PM" : "AM";
+    return `${date.getHours()}:${date.getMinutes()}${formatStr}`;
+  };
+  console.log(handleCurrentTimeFormated());
   const handleDayName = () => {
     let name = "";
     switch (date.getDay()) {
@@ -60,6 +65,11 @@ export const Topbar = ({ name }: { name: string }) => {
             <span className='text-md font-semibold text-[#d8d8d8]'>
               {handleDayName()}
             </span>
+          </span>
+        </div>
+        <div>
+          <span className='text-white font-semibold text-2xl'>
+            {handleCurrentTimeFormated()}
           </span>
         </div>
         <Link

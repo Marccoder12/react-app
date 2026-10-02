@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FineTaskContent } from "../FineTaskPage/FineTaskContent";
 import SideNav from "./components/SideNav/SideNav";
 import MainPage from "./components/MainPage";
+import BottomNav from "./components/BottomNav/BottomNav";
 
 export const HomePageContent = () => {
   return (

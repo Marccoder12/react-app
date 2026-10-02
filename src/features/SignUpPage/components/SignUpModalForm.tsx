@@ -4,6 +4,7 @@ import "../Styles/SignUpModal.css";
 import { supabase } from "../../../lib/supabase/client";
 import { FormEvent, useEffect, useState } from "react";
 import { useToast } from "../../../context/ToastContext";
+import icon from "../../../assets/logo.png";
 export function SignUpModalForm() {
   const navigate = useNavigate();
 
@@ -54,7 +55,6 @@ export function SignUpModalForm() {
       });
 
       // create customer in flutter wave
-      
 
       // useEffect(()=>{
       //   supabase.auth.onAuthStateChange()
@@ -86,60 +86,71 @@ export function SignUpModalForm() {
     }
   };
   return (
-    <main className='signUpModalForm'>
-      <h2 className='modalTitle'> Sign Up</h2>
-      {/* Keep the form tag - it gives you e.preventDefault() and Enter key support */}
+    <div className='h-full w-full flex items-center justify-center'>
+      <h2 className=' flex  items-end title fixed top-0 left-0 m-5 text-[#2450b1] font-bold text-4xl'>
+        <img
+          src={icon}
+          alt='Logo'
+          className='w-auto inline pr-2 font-outline-4 icon'
+        />
+        Fine
+        <span className='text-[#4975d4] font-semibold'>task</span>
+      </h2>
+      <main className='signUpModalForm'>
+        <h2 className='modalTitle'> Sign Up</h2>
+        {/* Keep the form tag - it gives you e.preventDefault() and Enter key support */}
 
-      <form className='fields' onSubmit={handleSubmit}>
-        <div className='name-row'>
-          <InputField
-            title='First Name'
-            placeholderText=''
-            onChange={setFirstName}
-            value={firstName}
-          />
-          <InputField
-            title='Last Name'
-            placeholderText=''
-            onChange={setLastName}
-            value={lastName}
-          />
-        </div>
+        <form className='fields' onSubmit={handleSubmit}>
+          <div className='name-row'>
+            <InputField
+              title='First Name'
+              placeholderText=''
+              onChange={setFirstName}
+              value={firstName}
+            />
+            <InputField
+              title='Last Name'
+              placeholderText=''
+              onChange={setLastName}
+              value={lastName}
+            />
+          </div>
 
-        <div className='emailnPass'>
-          <InputField
-            title='Email Address'
-            placeholderText=''
-            onChange={setEmail}
-            value={email}
-            type='email'
-          />
-          <InputField
-            title='Password'
-            placeholderText=''
-            onChange={setPassword}
-            value={password}
-            type='password'
-          />
-          <InputField
-            title='Confirm Password'
-            placeholderText=''
-            onChange={setConfirmPassword}
-            value={confirmPassword}
-            type='password'
-          />
-        </div>
-        {/* onToggle={setRememberMe} //<- pass the setter directly */}
-        {/* Button stays inside form -> type ="submit" works naturally */}
-        {/* <button type="submit" className="signUpBtn"> Register</button> */}
-        <Button btype='submit' title='Sign Up' />
-      </form>
-      <p className='text-gray-50'>
-        Already have an Account?
-        <Link to='/auth/login' className='underline'>
-          Log In
-        </Link>
-      </p>
-    </main>
+          <div className='emailnPass'>
+            <InputField
+              title='Email Address'
+              placeholderText=''
+              onChange={setEmail}
+              value={email}
+              type='email'
+            />
+            <InputField
+              title='Password'
+              placeholderText=''
+              onChange={setPassword}
+              value={password}
+              type='password'
+            />
+            <InputField
+              title='Confirm Password'
+              placeholderText=''
+              onChange={setConfirmPassword}
+              value={confirmPassword}
+              type='password'
+            />
+          </div>
+          {/* onToggle={setRememberMe} //<- pass the setter directly */}
+          {/* Button stays inside form -> type ="submit" works naturally */}
+          {/* <button type="submit" className="signUpBtn"> Register</button> */}
+          <Button btype='submit' title='Sign Up' />
+        </form>
+        <p className='text-gray-50'>
+          Already have an Account?
+          <Link to='/auth/login' className='underline'>
+            Log In
+          </Link>
+        </p>
+      </main>
+    </div>
   );
 }

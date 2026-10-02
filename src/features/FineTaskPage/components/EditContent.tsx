@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiSave, FiTrash } from "react-icons/fi";
 import { InputField } from "../../../components/SmallComps";
 import { FineTask } from "../../../Utils/types";
@@ -16,10 +16,11 @@ export const EditContent = () => {
     logo: string;
   };
   const [logos, setLogos] = useState<BankIcon[]>([]);
+  const [editContentState, setEditContentState] = useState<boolean>(false);
   useEffect(() => {
     getLogos();
   }, []); //Runs once when entering the settings panel
-
+  // useEffect(() => {}, [editContentState.current]);
   // or with async/await
   async function getLogos() {
     try {
@@ -82,7 +83,12 @@ export const EditContent = () => {
     return (
       <div className='h-full w-full flex flex-col p-4'>
         <div className='relative flex justify-end'>
-          <button className='absolute  text-[#ccc] p-3 rounded hover:cursor-pointer transition-colors hover:transition-colors hover:bg-[#ffffff33]'>
+          <button
+            className={`absolute  text-[#ccc] p-3 rounded hover:cursor-pointer transition-colors hover:transition-colors  ${editContentState === false ? "bg-[#3d60ac33] hover:bg-[#1d366d33]" : "bg-none hover:bg-[#1d366d33]"}`}
+            onClick={() => {
+              setEditContentState(!editContentState);
+            }}
+          >
             <PiPencil />
           </button>
           <div className='w-full flex justify-center align-center'>
@@ -225,9 +231,15 @@ export const EditContent = () => {
               </button>
             </div>
             <div className='relative w-full h-full flex items-center justify-around'>
-              <button className='absolute text-xl bg-blue-500 w-45 h-15 transition-all font-bold text-blue-100 hover:w-48 hover:h-16 hover:text-lg rounded-md'>
-                Resolve
-              </button>
+              {editContentState === false ? (
+                <button className='absolute text-xl bg-blue-500 w-45 h-15 transition-all font-bold text-blue-100 hover:w-48 hover:h-16 hover:text-lg rounded-md'>
+                  Save
+                </button>
+              ) : (
+                <button className='absolute text-xl bg-blue-500 w-45 h-15 transition-all font-bold text-blue-100 hover:w-48 hover:h-16 hover:text-lg rounded-md'>
+                  Resolve
+                </button>
+              )}
             </div>
           </div>
         </div>

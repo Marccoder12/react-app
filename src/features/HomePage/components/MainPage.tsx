@@ -8,7 +8,7 @@ export default function MainPage() {
   const { user, loading } = useAuth();
 
   return (
-    <div className='bg-[#1f1f1f] flex flex-col rounded-lg shadow'>
+    <div className='bg-[#1f1f1f] flex flex-col rounded-lg shadow not-md:h-full'>
       <Topbar
         name={
           user?.user_metadata?.first_name.charAt(0).toUpperCase() +
