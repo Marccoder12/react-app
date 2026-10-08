@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FineTask } from "../../Utils/types";
-import { useFineTask } from "./context/FineTaskContext";
+import { useFineTask } from "../../context/FineTaskContext";
 
 export const FineTaskItem = ({
   finetask,

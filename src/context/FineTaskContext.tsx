@@ -7,9 +7,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { FineTask } from "../../../Utils/types";
-import { supabase } from "../../../lib/supabase/client";
-import { useAuth } from "../../../context/AuthContext";
+import { FineTask } from "../Utils/types";
+import { supabase } from "../lib/supabase/client";
+import { useAuth } from "../context/AuthContext";
 
 type FineTaskContextType = {
   loading: boolean;
@@ -83,6 +83,7 @@ export const FineTaskContextProvider = ({
     const { error } = await supabase
       .from("fine_tasks")
       .delete()
+      .eq("user_id", user?.id)
       .eq("id", task.id)
       .single();
 

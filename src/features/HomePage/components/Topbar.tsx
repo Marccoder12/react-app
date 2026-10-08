@@ -22,8 +22,16 @@ export const Topbar = ({ name }: { name: string }) => {
     return "";
   };
   const handleCurrentTimeFormated = () => {
-    let formatStr = date.getHours() >= 12 ? "PM" : "AM";
-    return `${date.getHours()}:${date.getMinutes()}${formatStr}`;
+    const hours24 = date.getHours();
+    const period = hours24 >= 12 ? "PM" : "AM";
+
+    let hours12 = hours24 % 12;
+    if (hours12 === 0) hours12 = 12; // 0 -> 12, 13 -> 1, etc.
+
+    const mins =
+      date.getMinutes() <= 9 ? `0${date.getMinutes()}` : date.getMinutes();
+    const hoursStr = hours12 <= 9 ? `0${hours12}` : hours12;
+    return `${hoursStr}:${mins}${period}`;
   };
   console.log(handleCurrentTimeFormated());
   const handleDayName = () => {

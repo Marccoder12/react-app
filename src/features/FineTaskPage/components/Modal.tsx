@@ -4,7 +4,7 @@ import { supabase } from "../../../lib/supabase/client";
 import { GiBank } from "react-icons/gi";
 import { useToast } from "../../../context/ToastContext";
 import { FineTask } from "../../../Utils/types";
-import { useFineTask } from "../context/FineTaskContext";
+import { useFineTask } from "../../../context/FineTaskContext";
 
 type Bank = {
   code: string;

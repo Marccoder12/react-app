@@ -15,7 +15,7 @@ import {
 import { useTheme } from "../../../context/ThemeContext";
 import { supabase } from "../../../lib/supabase/client";
 import { useAuth } from "../../../context/AuthContext";
-import { useFineTask } from "../context/FineTaskContext";
+import { useFineTask } from "../../../context/FineTaskContext";
 import WalletLoader from "./WalletLoader";
 import "../../../mainStyle.css";
 import { BsWalletFill } from "react-icons/bs";

@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom";
-import { FineTaskContextProvider } from "../../FineTaskPage/context/FineTaskContext";
+import { FineTaskContextProvider } from "../../../context/FineTaskContext";
+import { StatsContextProvider } from "../../../context/StatsContext";
 
 export const MainContent = () => {
   return (
     <main className='h-full w-auto'>
       <FineTaskContextProvider>
-        <Outlet />
+        <StatsContextProvider>
+          <Outlet />
+        </StatsContextProvider>
       </FineTaskContextProvider>
     </main>
   );

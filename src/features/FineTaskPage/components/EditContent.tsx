@@ -6,7 +6,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { supabase } from "../../../lib/supabase/client";
 import { BsQuestion } from "react-icons/bs";
 import { BiPencil } from "react-icons/bi";
-import { useFineTask } from "../context/FineTaskContext";
+import { useFineTask } from "../../../context/FineTaskContext";
 import { FTLoader } from "./FTLoader";
 import { PiPencil } from "react-icons/pi";
 
@@ -100,7 +100,7 @@ export const EditContent = () => {
         <div className='w-full h-full flex flex-col'>
           {/* Contents */}
 
-          <div className='w-full  flex flex-col p-4  bg-[#1a1a1a] h-12/15 grow-2'>
+          <div className='w-full  flex flex-col p-4  bg-[#1a1a1a] h-12/15 grow-2 overflow-hidden overflow-y-scroll'>
             <div className='flex flex-col gap-y-10'>
               <div>
                 <span className='text-xl text-[#cecece]'>Title</span>
@@ -162,7 +162,7 @@ export const EditContent = () => {
               </div>
               <div>
                 <span className='text-xl text-[#cecece]'>Due-Date</span>
-                <div className='flex relative w-full items-center'>
+                <div className='flex relative w-full items-center gap-1.5'>
                   <input
                     value={selectedTask?.due_date.slice(0, 16)}
                     onChange={(e) => {
@@ -177,7 +177,7 @@ export const EditContent = () => {
                       );
                     }}
                     type='datetime-local'
-                    className='relative w-full border pt-4 pb-4 pl-3 pr-[7%] rounded-md border-[#dddddd28] text-[#cecece] [&::-webkit-calendar-picker-indicator]:invert
+                    className='relative w-full border pt-4 pb-4 pl-3 pr-[8%] rounded-md border-[#dddddd28] text-[#cecece] [&::-webkit-calendar-picker-indicator]:invert
     [&::-webkit-calendar-picker-indicator]:opacity-70
     [&::-webkit-calendar-picker-indicator]:hover:opacity-100"'
                   />
@@ -225,7 +225,10 @@ export const EditContent = () => {
             <div className='relative w-full h-full flex items-center justify-around'>
               <button
                 className='absolute text-xl bg-red-500 w-45 h-15  transition-all font-bold text-red-100 hover:w-48 hover:h-16 hover:text-lg rounded-md'
-                onClick={() => handleFineTaskDeleted(selectedTask)}
+                onClick={() => {
+                  handleFineTaskDeleted(selectedTask);
+                  console.log("TASK: ", selectedTask?.id);
+                }}
               >
                 Delete
               </button>

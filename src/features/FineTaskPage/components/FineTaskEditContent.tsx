@@ -1,7 +1,7 @@
 import { EditContent } from "./EditContent";
 import { FineTask } from "../../../Utils/types";
 import { useEffect, useState } from "react";
-import { useFineTask } from "../context/FineTaskContext";
+import { useFineTask } from "../../../context/FineTaskContext";
 
 export const FineTaskEditContent = ({
   tasksEmpty,

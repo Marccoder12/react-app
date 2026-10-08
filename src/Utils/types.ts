@@ -9,3 +9,13 @@ export interface FineTask {
     resolved_account_name: string;
     // auto_pay: boolean;
 };
+
+
+export interface StatsEntry{
+    id: string;
+    user_id: string;
+    fineTaskId?: string;
+    fineTask_group?: string;
+    created_at: string;
+    status: string;
+}

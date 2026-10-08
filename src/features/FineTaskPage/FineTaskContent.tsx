@@ -15,7 +15,7 @@ import { useTheme } from "../../context/ThemeContext";
 import {
   FineTaskContextProvider,
   useFineTask,
-} from "./context/FineTaskContext";
+} from "../../context/FineTaskContext";
 
 export const FineTaskContent = () => {
   // console.log("FinetaskContent Remounted");
@@ -26,29 +26,27 @@ export const FineTaskContent = () => {
   const { user } = useAuth();
 
   return (
-    <FineTaskContextProvider>
-      <main
-        className={`finetaskContent grid grid-cols-5 gap-0 h-full w-full p-4`}
-      >
-        {/* List Section */}
-        <div className={`col-span-3 `}>
-          <FineTaskListContent onParentModal={() => setOpen(true)} />
-        </div>
-        {/* Edit Section */}
-        <div className={`col-span-2 `}>
-          <FineTaskEditContent
-            fineTaskData={selectedFinetask}
-            tasksEmpty={finetasks.length === 0}
-          />
-        </div>
-        <Modal
-          open={open}
-          onClose={() => setOpen(false)}
-          onTaskCreated={() => {
-            setOpen(false);
-          }}
+    <main
+      className={`finetaskContent grid grid-cols-5 gap-0 h-full w-full p-4`}
+    >
+      {/* List Section */}
+      <div className={`col-span-3 `}>
+        <FineTaskListContent onParentModal={() => setOpen(true)} />
+      </div>
+      {/* Edit Section */}
+      <div className={`col-span-2 `}>
+        <FineTaskEditContent
+          fineTaskData={selectedFinetask}
+          tasksEmpty={finetasks.length === 0}
         />
-      </main>
-    </FineTaskContextProvider>
+      </div>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        onTaskCreated={() => {
+          setOpen(false);
+        }}
+      />
+    </main>
   );
 };
