@@ -237,29 +237,29 @@ export const StatsContent = () => {
         <ul className='flex gap-8 not-md:flex-col'>
           <li className='flex items-center gap-1'>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#22C55E]' />
+              <FiBox className='inline text-xl text-[#22C55E]' />
               <span>CREATED</span>
             </div>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#3b82F6]' />
+              <FiBox className='inline text-xl text-[#3b82F6]' />
               <span>UPDATED</span>
             </div>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#EF4444]' />
+              <FiBox className='inline text-xl text-[#EF4444]' />
               <span>DELETED</span>
             </div>
           </li>
           <li className='flex items-center gap-1'>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#34fdba]' />
+              <FiBox className='inline text-xl text-[#34fdba]' />
               <span>RESOLVED</span>
             </div>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#F59E0B]' />
+              <FiBox className='inline text-xl text-[#F59E0B]' />
               <span>PENDING</span>
             </div>
             <div className='border border-[#3b3b3b] p-1 rounded-md'>
-              <FiBox className='inline text-2xl text-[#f50931]' />
+              <FiBox className='inline text-xl text-[#f50931]' />
               <span>FAILED</span>
             </div>
           </li>
@@ -273,7 +273,7 @@ export const StatsContent = () => {
           <option>This Year</option>
         </select>
 
-        <label htmlFor='start-date'>Start Date:</label>
+        {/* <label htmlFor='start-date'>Start Date:</label>
         <input
           type='datetime-local'
           id='start-date'
@@ -292,7 +292,7 @@ export const StatsContent = () => {
             setEndDate(new Date(e.target.value));
             console.log("End Date: ", new Date(e.target.value).toISOString());
           }}
-        />
+        /> */}
       </header>
       {/* CHARTS AND TABLES */}
       <section className='w-full h-full flex flex-col p-5'>

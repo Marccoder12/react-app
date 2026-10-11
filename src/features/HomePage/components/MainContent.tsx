@@ -4,7 +4,7 @@ import { StatsContextProvider } from "../../../context/StatsContext";
 
 export const MainContent = () => {
   return (
-    <main className='h-full w-auto'>
+    <main className='h-full w-full'>
       <FineTaskContextProvider>
         <StatsContextProvider>
           <Outlet />

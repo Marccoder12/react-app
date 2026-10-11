@@ -2,7 +2,7 @@
 // import "./components/Task";
 import { ReactNode } from "react";
 import "./mainStyle.css";
-   import "nigerian-bank-icons/index.css";
+import "nigerian-bank-icons/index.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 // import Home from "./pages/Home";
@@ -28,7 +28,7 @@ import { ThemeContext, ThemeProvider } from "./context/ThemeContext";
 // Your main App
 function App() {
   return (
-    <div className='App h-full bg-[#181818]'>
+    <div className='App w-full h-full bg-[#181818]'>
       <BrowserRouter>
         <ThemeProvider>
           <ToastProvider>

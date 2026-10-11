@@ -6,7 +6,7 @@ import BottomNav from "../features/HomePage/components/BottomNav/BottomNav";
 export default function Home() {
   return (
     <main
-      className={`h-full grid gap-4 pb-4 pt-4 pr-4 not-md:p-0 md:grid-cols-[220px_1fr] not-md:grid-rows-[1fr_80px]`}
+      className={`w-[100%] h-full grid gap-4 pb-4 pt-4 pr-4 not-md:p-0 md:grid-cols-[220px_1fr] not-md:grid-rows-[1fr_80px]`}
     >
       {/* <p>Hello World</p> */}
       <SideNav />

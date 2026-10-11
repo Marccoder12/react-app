@@ -6,7 +6,7 @@ import BottomNav from "./components/BottomNav/BottomNav";
 
 export const HomePageContent = () => {
   return (
-    <main className='grid grid-cols-[1fr_0.55fr] m-3 w-auto h-10/12'>
+    <main className='grid grid-cols-[1fr_0.55fr] m-3 w-full h-10/12'>
       <SideNav></SideNav>
       <MainPage></MainPage>
       {/* <BrowserRouter>

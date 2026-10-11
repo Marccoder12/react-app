@@ -146,6 +146,7 @@ export const SettingsContent = () => {
           </button>
         )}
       </section>
+      {/* CARD LINKING */}
       <section className='w-full h-[150px] flex items-center justify-between p-6 rounded-3xl bg-[#262626] border border-[#3A3A3A]'>
         <div className='details bg-[#1f1f1f] w-full p-4 rounded-xl border border-[#3A3A3A] gap-2 flex  items-center justify-between'>
           <div className='flex items-center gap-2 h-full'>

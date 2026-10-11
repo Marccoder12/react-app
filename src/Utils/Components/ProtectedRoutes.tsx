@@ -18,14 +18,15 @@ export default function ProtectedRoutes() {
             "/assets/logo.png"
           }
         /> */}
-        <div className="flex items-center justify-center h-screen">
-          <div className=" w-5 h-5 bg-blue-600 animate-ping"></div>
+        <div className='flex items-center justify-center h-screen'>
+          <div className=' w-5 h-5 bg-blue-600 animate-ping'></div>
         </div>
       </>
     );
 
-  //If not looged in -> send to login
-  if (!user) return <Navigate to="/auth/login" replace />;
+  //If not looged in -> send to login.
+  // uncomment wen not developing offline
+  if (!user) return <Navigate to='/auth/login' replace />;
 
   //Logged in -> show the protected page
   return <Outlet />;

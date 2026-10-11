@@ -326,11 +326,13 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       <div className='absolute inset-0 bg-black/40 backdrop-blur-sm transition-all' />
 
       {/* modal box */}
-      <div className='relative bg-[#141414] border-2 border-[#444] z-10 w-96 shadow-lg transition-all'>
+      <div className='relative bg-[#141414] border-2 border-[#444] z-10 w-1/3 shadow-lg transition-all'>
         {/* header */}
-        <div className='flex items-center justify-between relative p-6 border-b border-gray-200'>
-          <div className=' relative pl-30'>
-            <h2 className='text-lg font-semibold text-[#ccc]'>Create Task</h2>
+        <div className='flex items-center justify-between p-6 border-b border-gray-200'>
+          <div className='w-full flex justify-center items-center'>
+            <h2 className='w-full text-lg font-semibold text-[#ccc] text-nowrap'>
+              Create Task
+            </h2>
           </div>
           <div className='justify-self-end'>
             <button
