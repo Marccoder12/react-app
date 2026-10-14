@@ -44,6 +44,7 @@ export function SignUpModalForm() {
         options: {
           // Verify important for confirmation redirect
           emailRedirectTo: `${window.location.origin}/home/settings`,
+          // emailRedirectTo: `${window.location.origin}/home/settings`,
 
           //Send names as metadata -> they'll go into auth.users.raw_ysers_meta_data
           data: {
@@ -53,6 +54,10 @@ export function SignUpModalForm() {
           },
         },
       });
+      console.log(
+        "emailRedirectTo: ",
+        `${window.location.origin}/home/settings`,
+      );
 
       // create customer in flutter wave
 
