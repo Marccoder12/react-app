@@ -23,6 +23,18 @@ export const SettingsContent = () => {
       try {
         if (!user) throw new Error("Not authenticated");
 
+        // const { error } = await supabase.functions.invoke("pinManagement", {
+        //   body: {
+        //     action: "IS_VALID",
+        //     pin: null,
+        //   },
+        // });
+
+        // if (error) {
+        //   addToast("error", `Failed to get Pin {ERROR: ${error.msg}}`);
+        // } else {
+        //   addToast("success", "Verified Pin");
+        // }
         const { data, error } = await supabase
           .from("profiles")
           .select("hashed_pin")

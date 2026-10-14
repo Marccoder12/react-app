@@ -278,15 +278,15 @@ export const ChangePinModal = ({ open, onClose }: Props) => {
       addToast("error", "Pins do not match");
       return;
     }
-
-    const { error } = await supabase.functions.invoke("pinManagement", {
+    const { data, error } = await supabase.functions.invoke("pin_management", {
       body: {
-        action: "change",
+        action: "CHANGE",
         pin: pin,
       },
     });
 
     if (error) {
+      throw new Error("error.message");
       addToast("error", "Failed to update pin");
     } else {
       addToast("success", "Pin updated successfully");

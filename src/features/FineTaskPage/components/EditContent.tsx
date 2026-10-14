@@ -203,7 +203,7 @@ export const EditContent = () => {
                     src={
                       logos.length > 0
                         ? "https://supermx1.github.io/nigerian-banks-api/" +
-                          logos.find((bank) => bank.code === Number("011"))
+                          logos.find((bank) => bank.code === Number("282"))
                             ?.logo
                         : ""
                     }

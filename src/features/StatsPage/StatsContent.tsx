@@ -1,15 +1,3 @@
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-//   Title,
-//   Tooltip,
-//   Legend,
-//   BarElement,
-//   ChartData,
-// } from "chart.js";
 import {
   BarChart,
   Bar,
@@ -273,7 +261,7 @@ export const StatsContent = () => {
           <option>This Year</option>
         </select>
 
-        {/* <label htmlFor='start-date'>Start Date:</label>
+        <label htmlFor='start-date'>Start Date:</label>
         <input
           type='datetime-local'
           id='start-date'
@@ -292,7 +280,7 @@ export const StatsContent = () => {
             setEndDate(new Date(e.target.value));
             console.log("End Date: ", new Date(e.target.value).toISOString());
           }}
-        /> */}
+        />
       </header>
       {/* CHARTS AND TABLES */}
       <section className='w-full h-full flex flex-col p-5'>
