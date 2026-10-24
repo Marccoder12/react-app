@@ -24,14 +24,14 @@ export const FineTaskItem = ({
       return "Passed";
     } else if (dueDay.getTime() === today.getTime()) {
       return (
-        d.toLocaleTimeString("en-GB", {
+        d.toLocaleTimeString("en-NG", {
           hour: "2-digit",
           minute: "2-digit",
         }) + " Today"
       ); // HH:MM
       // return `${d.getHours()}:${d.getMinutes()} Today`;
     } else {
-      return d.toLocaleDateString("en-GB"); // dd/mm/yyyy
+      return d.toLocaleDateString("en-NG"); // dd/mm/yyyy
     }
   };
 
