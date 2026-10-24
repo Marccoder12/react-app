@@ -43,8 +43,8 @@ export function SignUpModalForm() {
         password: password,
         options: {
           // Verify important for confirmation redirect
-          emailRedirectTo: `${window.location.origin}/home/settings`,
           // emailRedirectTo: `${window.location.origin}/home/settings`,
+          emailRedirectTo: ``,
 
           //Send names as metadata -> they'll go into auth.users.raw_ysers_meta_data
           data: {

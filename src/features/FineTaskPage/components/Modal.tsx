@@ -187,7 +187,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       if (error) console.error("Failed to load banks", error);
       setBanks(data || []);
     };
-    fetchBanks();
+    fetchBanks(); 
   }, []);
 
   // RESOLVES ACCOUNT NAME AND DISPLAYS UNDER ACC NUM

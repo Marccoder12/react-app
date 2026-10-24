@@ -136,6 +136,8 @@ export const Topbar = ({ name }: { name: string }) => {
 const TopBarTime = () => {
   const date = new Date();
 
+  const [dateState, setDateState] = useState(new Date());
+
   const handleCurrentTimeFormated = () => {
     const hours24 = date.getHours();
     const period = hours24 >= 12 ? "PM" : "AM";
@@ -152,7 +154,7 @@ const TopBarTime = () => {
   const [currentTime, setCurrentTime] = useState<string>();
   useEffect(() => {
     setCurrentTime(handleCurrentTimeFormated);
-  }, [date.getMinutes()]);
+  }, [dateState]);
   return (
     <div>
       <span className='text-white font-semibold text-2xl'>{currentTime}</span>
