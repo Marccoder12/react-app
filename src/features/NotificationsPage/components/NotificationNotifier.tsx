@@ -48,13 +48,13 @@ export const NotificationNotifier = () => {
         "Finetask",
         `You have ${fresh.length} new notifications`,
         "summary",
-        () => navigate("/home/notification"),
+        () => navigate("/dashboard/finetasks"),
       );
     } else {
       fresh.forEach((n) =>
         show(n.title, n.message, n.id, () => {
           markAsRead(n.id);
-          navigate("/home/notification");
+          navigate("/dashboard/finetasks");
         }),
       );
     }

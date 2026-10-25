@@ -8,7 +8,7 @@ export const MainContent = () => {
   return (
     <main className='h-full w-full'>
       <NotificationContextProvider>
-        <NotificationNotifier />
+        {/* <NotificationNotifier /> */}
         <FineTaskContextProvider>
           <StatsContextProvider>
             <Outlet />

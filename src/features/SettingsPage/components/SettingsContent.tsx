@@ -189,6 +189,13 @@ export const SettingsContent = () => {
           </button>
         </div>
       </section>
+      {/* NOTIFICATION SYSTEM */}
+      <section>
+        <EnablePushButton />
+
+        <TestPushButton />
+      </section>
+      {/* LOGOUT BUTTON */}
       <section className='w-full h-[150px] flex items-center justify-between p-6 pr-11 rounded-3xl bg-[#262626] border border-[#3A3A3A]'>
         <div className='text-white'>
           <h1 className='text-xl font-bold'>Session</h1>
@@ -221,3 +228,70 @@ export const SettingsContent = () => {
     </div>
   );
 };
+import { subscribeToPush } from "../../../Utils/subscribeToPush";
+
+export const EnablePushButton = () => {
+  const [status, setStatus] = useState("");
+
+  async function handleEnable() {
+    try {
+      setStatus("Enabling notifications...");
+
+      await subscribeToPush();
+
+      setStatus("Push notifications enabled!");
+    } catch (error) {
+      console.error("Push setup failed:", error);
+
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : "Failed to enable notifications.",
+      );
+    }
+  }
+
+  return (
+    <div>
+      <button className='bg-[#3073d8]' onClick={handleEnable}>
+        Enable background notifications
+      </button>
+
+      {status && <p>{status}</p>}
+    </div>
+  );
+};
+
+export function TestPushButton() {
+  const [status, setStatus] = useState("");
+
+  async function sendTestPush() {
+    setStatus("Sending test push...");
+
+    const { data, error } = await supabase.functions.invoke("test-push", {
+      method: "POST",
+    });
+
+    if (error) {
+      console.error("Push test failed:", error);
+      setStatus(`Failed: ${error.message}`);
+      return;
+    }
+
+    if (data?.error) {
+      setStatus(`Failed: ${data.error}`);
+      return;
+    }
+
+    setStatus(data?.message ?? "Request completed.");
+  }
+
+  return (
+    <div>
+      <button className='bg-[#3073d8]' onClick={sendTestPush}>
+        Send test push notification
+      </button>
+      <p>{status}</p>
+    </div>
+  );
+}
