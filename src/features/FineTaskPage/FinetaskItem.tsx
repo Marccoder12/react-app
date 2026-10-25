@@ -14,25 +14,28 @@ export const FineTaskItem = ({
   const { selectedTask, handleSelectedFineTask } = useFineTask();
 
   const setDueDate = (date: Date | string): string => {
+    if (!date) return "";
     const d = new Date(date);
-    const now = new Date();
+    if (isNaN(d.getTime())) return "";
 
+    const now = new Date();
     const dueDay = new Date(d.getFullYear(), d.getMonth(), d.getDate());
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    if (dueDay.getTime() < today.getTime()) {
-      return "Passed";
-    } else if (dueDay.getTime() === today.getTime()) {
+    if (dueDay.getTime() < today.getTime()) return "Passed";
+
+    if (dueDay.getTime() === today.getTime()) {
       return (
-        d.toLocaleTimeString("en-NG", {
+        d.toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
+          hour12: false,
+          timeZone: "Africa/Lagos",
         }) + " Today"
-      ); // HH:MM
-      // return `${d.getHours()}:${d.getMinutes()} Today`;
-    } else {
-      return d.toLocaleDateString("en-NG"); // dd/mm/yyyy
+      );
     }
+
+    return d.toLocaleDateString("en-GB", { timeZone: "Africa/Lagos" }); // dd/mm/yyyy
   };
 
   const formatWithCommas = (value: number | string): string => {
@@ -50,30 +53,6 @@ export const FineTaskItem = ({
     const ampm = date.getHours() >= 12 ? "PM" : "AM";
     return `${hr}:${min} ${ampm} - ${day}/${month}/${year}`;
   };
-
-  // console.log(finetask)
-  // return (
-  //   <div onClick={(e) => {
-  //     e.stopPropagation();
-  //     handleSelectedFineTask(finetask)}} className={`flex flex-col transition-all bg-[#727272] items-center justify-between bg-white-50 w-full h-32 rounded-2xl hover:bg-stone-300 cursor-pointer hover:border-blue-400 hover:transition-all hover:border-2 ${selectedTask?.id === finetask.id ? "border-blue-400 border-3" : ""}`}>
-  //     <div className="bg-[#3a4899] hover:bg-[#4f62ca] rounded-t-xl p-4 h-full w-full">
-  //       <h1 className="text-[#dfdfdf] font-bold font-sans text-4xl text-ellipsis">
-  //         {finetask.title}
-  //       </h1>
-  //     </div>
-  //     <div className="h-[calc(100%-4rem)] relative w-full rounded-b-2xl flex justify-between">
-  //       <div className="pl-4 w-[50%] bg-[#616161] hover:bg-[#797979] rounded-bl-2xl">
-  //         <span className="text-3xl relative text-[#424242] font-bold">{currency}</span>
-  //         <span className=" text-3xl font-semibold text-[#a5a5a5]">{(finetask.amount?.toString() ?? 0).toString()}</span>
-  //       </div>
-  //       <div className=" w-[50%] pr-3 pl-2 pt-2 relative justify-end overflow-hidden text-ellipsis">
-  //         <span className="text-stone-400 text-2xl font-semibold">
-  //           {setDueDate(finetask.due_date ?? "")}
-  //         </span>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 
   return (
     <div

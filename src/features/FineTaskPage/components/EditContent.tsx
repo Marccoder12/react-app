@@ -19,9 +19,8 @@ export const EditContent = () => {
   const [editContentState, setEditContentState] = useState<boolean>(false);
   useEffect(() => {
     getLogos();
-  }, []); //Runs once when entering the settings panel
-  // useEffect(() => {}, [editContentState.current]);
-  // or with async/await
+  }, []);
+
   async function getLogos() {
     try {
       const response = await fetch(
@@ -45,20 +44,41 @@ export const EditContent = () => {
     handleFineTaskUpdated,
   } = useFineTask();
   useEffect(() => {
-    // console.log("EditContent: Selected Task updated", selectedTask?.title);
     setEditFineTask(selectedTask);
   }, [selectedTask]);
 
   const formatDate = () => {
-    const date = new Date(editFineTask?.due_date.slice(0, 16) ?? "");
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    if (!editFineTask?.due_date) return "";
+
+    const date = new Date(editFineTask.due_date);
+
+    if (Number.isNaN(date.getTime())) return "";
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1);
     const year = date.getFullYear();
-    const hr = date.getHours().toString().padStart(2, "0");
-    const min = date.getMinutes().toString().padStart(2, "0");
+
+    const hr = pad(date.getHours());
+    const min = pad(date.getMinutes());
+
     const ampm = date.getHours() >= 12 ? "PM" : "AM";
+
     return `${hr}:${min} ${ampm} - ${day}/${month}/${year}`;
   };
+
+  const toLocalInputValue = (iso: string) => {
+    if (!iso) return "";
+
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  };
+
   const { user } = useAuth();
   const [editFineTask, setEditFineTask] = useState<FineTask | null>(
     selectedTask ?? null,
@@ -164,14 +184,20 @@ export const EditContent = () => {
                 <span className='text-xl text-[#cecece]'>Due-Date</span>
                 <div className='flex relative w-full items-center gap-1.5'>
                   <input
-                    value={selectedTask?.due_date.slice(0, 16)}
+                    value={toLocalInputValue(editFineTask?.due_date ?? "")}
+                    // value={new Date(editFineTask?.due_date ?? "")
+                    //   .toISOString()
+                    //   .slice(0, 16)}
                     onChange={(e) => {
+                      const value = e.target.value;
+
                       setEditFineTask((prev) =>
                         prev
                           ? {
                               ...prev,
-                              due_date:
-                                e.target.value === "" ? "" : e.target.value,
+                              due_date: value
+                                ? new Date(value).toISOString()
+                                : "",
                             }
                           : null,
                       );
@@ -192,8 +218,6 @@ export const EditContent = () => {
                     <FiSave className='text-md hover:text-xl transition-all hover:transition-all' />
                   </button>
                 </div>
-                {/* <span className="font_semibold text-black" >Old Value: {formatDate()}</span> */}
-                {/* <p>{fineTask?.due_date}</p> */}
               </div>
               <div className='bg-[#d8d8d804] p-2 rounded-sm border border-[#d8d8d815]'>
                 <span className='text-xl border-b text-[#ccc] border-stone-200'>

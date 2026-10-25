@@ -187,7 +187,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
       if (error) console.error("Failed to load banks", error);
       setBanks(data || []);
     };
-    fetchBanks(); 
+    fetchBanks();
   }, []);
 
   // RESOLVES ACCOUNT NAME AND DISPLAYS UNDER ACC NUM
@@ -423,7 +423,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
               onChange={(e) =>
                 setfineTask((prev) => ({
                   ...prev,
-                  due_date: e.target.value,
+                  due_date: new Date(e.target.value).toISOString(),
                 }))
               }
               value={fineTask.due_date ?? ""}
@@ -535,7 +535,7 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
         <form
           className={`p-6 space-y-4 
           ${stage === "last" ? "block" : "hidden"}`}
-          onSubmit={handleCreateTask}
+          // onSubmit={handleCreateTask}
         >
           <div className='gap-y-2'>
             <span className='font-bold text-white text-2xl'>Verify Task</span>
@@ -558,18 +558,6 @@ export default function Modal({ open, onClose, onTaskCreated }: Props) {
                   />
                 ))}
               </div>
-              {/* <input
-              type="number"
-              placeholder="Pin..."
-              onChange={(e) =>
-                setfineTask((prev) => ({
-                  ...prev,
-                  pin: e.target.value === "" ? null : parseInt(e.target.value),
-                }))
-              }
-              value={fineTask.pin ?? ""}
-              className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            /> */}
             </div>
           </div>
           <div className='flex justify-center items-center border-t-2 pt-4 border-stone-200'>

@@ -206,7 +206,7 @@ export const VerifyOTPModal = ({
       <div className='absolute inset-0 bg-black/40 backdrop-blur-sm' />
 
       {/* modal box */}
-      <div className='relative text-[#505050] border-[#333] border-2 rounded-xl z-10 w-96 shadow-lg'>
+      <div className='bg-[#1a1a1a] relative text-[#505050] border-[#333] border-2 rounded-xl z-10 w-96 shadow-lg'>
         {/* Header */}
         <div className='flex items-center justify-between relative p-2 border-b border-gray-200'>
           <div className='flex justify-center'>
@@ -307,11 +307,11 @@ export const ChangePinModal = ({ open, onClose }: Props) => {
       <div className='absolute inset-0 bg-black/40 backdrop-blur-sm' />
 
       {/* modal box */}
-      <div className='relative bg-white rounded-xl z-10 w-96 shadow-lg'>
+      <div className='relative bg-[#1d1d1d] rounded-xl z-10 w-96 shadow-lg'>
         {/* Header */}
         <div className='flex items-center justify-between relative p-2 border-b border-gray-200'>
           <div className='flex justify-center'>
-            <h2 className='text-lg font-bold'>Change Pin</h2>
+            <h2 className='text-lg font-bold text-[#a0a0a0]'>Change Pin</h2>
           </div>
           <div className='justify-self-end'>
             <button

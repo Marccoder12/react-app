@@ -1,3 +1,15 @@
+export interface AppNotification {
+  id: string;
+  user_id: string;
+  type: "finetask" | "task" | "app";
+  title: string;
+  message: string;
+  object: Record<string, any> | null;
+  notified_at: string | null;
+  read_at: string | null;
+  created_at: string;
+};
+
 export interface FineTask {
     id: string;
     title: string;

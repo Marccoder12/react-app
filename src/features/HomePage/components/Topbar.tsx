@@ -6,17 +6,15 @@ import { Toggle } from "../../../components/SmallComps";
 import { useEffect, useState } from "react";
 const date = new Date();
 export const Topbar = ({ name }: { name: string }) => {
-  interface topBarTime {
-    dayName: string;
-    month: string;
-    year: number;
-    time: string;
-  }
-  let date = new Date();
+  const date = useNow();
+  const dayName = date.toLocaleDateString("en-GB", { weekday: "long" });
+  const month = date.toLocaleDateString("en-GB", { month: "short" });
 
-  useEffect(() => {}, [date]);
   const handleTimeName = () => {
     let hr = date.getHours();
+    if (hr < 5) {
+      return "Good Night";
+    }
     if (hr < 12) {
       return "Good Morning";
     } else if (hr < 17) {
@@ -109,7 +107,7 @@ export const Topbar = ({ name }: { name: string }) => {
           <span className='text-[16px] block text-stone-500'>
             Today is:{" "}
             <span className='text-md font-semibold text-[#d8d8d8]'>
-              {`${handleDayName()} ${handleMonthName()} ${date.getUTCFullYear()}`}
+              {dayName} {month} {date.getFullYear()}
             </span>
           </span>
         </div>
@@ -133,31 +131,39 @@ export const Topbar = ({ name }: { name: string }) => {
   );
 };
 
-const TopBarTime = () => {
-  const date = new Date();
+const useNow = () => {
+  const [now, setNow] = useState(() => new Date());
 
-  const [dateState, setDateState] = useState(new Date());
-
-  const handleCurrentTimeFormated = () => {
-    const hours24 = date.getHours();
-    const period = hours24 >= 12 ? "PM" : "AM";
-
-    let hours12 = hours24 % 12;
-    if (hours12 === 0) hours12 = 12; // 0 -> 12, 13 -> 1, etc.
-
-    const mins =
-      date.getMinutes() <= 9 ? `0${date.getMinutes()}` : date.getMinutes();
-    const hoursStr = hours12 <= 9 ? `0${hours12}` : hours12;
-    return `${hoursStr}:${mins}${period}`;
-  };
-
-  const [currentTime, setCurrentTime] = useState<string>();
   useEffect(() => {
-    setCurrentTime(handleCurrentTimeFormated);
-  }, [dateState]);
+    let timeout: number;
+
+    const schedule = () => {
+      // ms until the next minute boundary, so the clock flips exactly on :00
+      const delay = 60000 - (Date.now() % 60000);
+      timeout = window.setTimeout(() => {
+        setNow(new Date());
+        schedule();
+      }, delay);
+    };
+
+    schedule();
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  return now;
+};
+const TopBarTime = () => {
+  const now = useNow();
+
+  const time = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  }); // e.g. "12:05 AM"
+
   return (
     <div>
-      <span className='text-white font-semibold text-2xl'>{currentTime}</span>
+      <span className='text-white font-semibold text-2xl'>{time}</span>
     </div>
   );
 };
